@@ -118,6 +118,10 @@
 				$("#confirm_wrap", parent.document).append(html_string);
 			});
 
+			html_string = conv_inputbox_item("peter/总经理", "peter");
+			$("#consult_wrap", parent.document).append(html_string);
+			html_string = conv_inputbox_item("alex/组长", "alex");
+			$("#consult_wrap", parent.document).append(html_string);
 			
 			$("#cc.selected li").each(function() {
 				emp_no = $(this).attr('data');
@@ -131,13 +135,12 @@
 			});
 			
 			//固定接收邮件的人
-			html_string = conv_inputbox_item("hill.j/员工", "hill.j");
-			$("#consult_wrap", parent.document).append(html_string);
 			html_string = conv_inputbox_item("eda/员工", "eda");
 			$("#consult_wrap", parent.document).append(html_string);
-			html_string = conv_inputbox_item("alex/组长", "alex");
+			html_string = conv_inputbox_item("hill.j/员工", "hill.j");
 			$("#consult_wrap", parent.document).append(html_string);
-			
+
+
 			$("#confirm_wrap span i", parent.document).remove();
 			$("#confirm_wrap span", parent.document).append("<b><i class=\"fa fa-arrow-right\"></i></b>");
 			$("#confirm_wrap span b:last", parent.document).html("<i class=\"fa\"></i>");
