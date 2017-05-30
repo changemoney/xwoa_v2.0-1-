@@ -1,0 +1,443 @@
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: ---  MailAccountController _update ----
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: --- _facade 111111 2222----
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: --- 密码相等 ----
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: --- _before_write $pwd---123456
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: --- _facade 111111 2222----
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+DEBUG: --- _before_write $pwd---
+[ 2017-05-30T07:56:52+08:00 ] ::1 /index.php?m=&c=MailAccount&a=save
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.001000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0070s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0110s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0500s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0090s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0150s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0860s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0080s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0080s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0510s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0080s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0010s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0190s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0290s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0080s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0040s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_mail_account` [ RunTime:0.0080s ]
+SQL: UPDATE `think_mail_account` SET `mail_name`='Hill.J@888mkt.com',`email`='Hill.J@888mkt.com',`pop3svr`='mail.888mkt.com',`smtpsvr`='mail.888mkt.com',`mail_id`='Hill.J@888mkt.com',`mail_pwd`='123456' WHERE `id` = 147 [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user` [ RunTime:0.0080s ]
+NOTIC: [8] Undefined index: mail_pwd D:\Documents and Settings\Hill.j\Desktop\mdoa\xwoa_v2.0 (1)\ThinkPHP\Library\Think\Model.class.php 第 300 行.
+SQL: UPDATE `think_user` SET `email`='Hill.J@888mkt.com' WHERE `id` = 147 [ RunTime:0.0010s ]
+
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- _facade 111111 2222----
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- _before_write $pwd---
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- 流程插入的数据库ID ----103
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- _facade 111111 2222----
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- _before_write $pwd---
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+DEBUG: --- 流程插入的数据库ID ----104
+[ 2017-05-30T07:56:55+08:00 ] ::1 /index.php?m=&c=MailAccount&a=index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.001000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0090s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0120s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0500s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0090s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0100s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0040s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0510s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0090s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0100s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0550s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0120s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0020s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0090s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_file` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_file` LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_system_log` [ RunTime:0.0170s ]
+NOTIC: [8] Undefined index: mail_pwd D:\Documents and Settings\Hill.j\Desktop\mdoa\xwoa_v2.0 (1)\ThinkPHP\Library\Think\Model.class.php 第 300 行.
+SQL: INSERT INTO `think_system_log` (`time`,`type`,`data`) VALUES ('1496102215','1','15') [ RunTime:0.0360s ]
+SQL: SELECT SUM(size) AS tp_sum FROM `think_file` LIMIT 1   [ RunTime:0.0230s ]
+NOTIC: [8] Undefined index: mail_pwd D:\Documents and Settings\Hill.j\Desktop\mdoa\xwoa_v2.0 (1)\ThinkPHP\Library\Think\Model.class.php 第 300 行.
+SQL: INSERT INTO `think_system_log` (`time`,`type`,`data`) VALUES ('1496102215','2','0.71975517272949') [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_mail_account` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `think_mail_account` WHERE `id` = 147 LIMIT 1   [ RunTime:0.0020s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.001000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.001000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0030s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.000000s ]
+INFO: [ action_begin ] --END-- [ RunTime:-0.455000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.000000s ]
+INFO: [ action_begin ] --END-- [ RunTime:-0.456000s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:-0.013000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.006000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.007000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:-0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-30T07:56:56+08:00 ] ::1 /index.php?m=&c=push&a=client
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.001000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0090s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0130s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0530s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0100s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0100s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0100s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0030s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0500s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0100s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0100s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0510s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0080s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0020s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0090s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.009000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.009000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-30T07:56:56+08:00 ] ::1 /index.php?m=&c=push&a=server
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.001000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0090s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0120s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0530s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0090s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0500s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0090s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0080s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0510s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0080s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0020s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0090s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_push` [ RunTime:0.0090s ]
+SQL: SELECT * FROM `think_push` WHERE `user_id` = '147' AND `time` <= 1496102215 LIMIT 1   [ RunTime:0.0020s ]
+
+[ 2017-05-30T08:41:42+08:00 ] ::1 /index.php?m=&c=push&a=server
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.002000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.002000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.002000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.003000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0890s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0610s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.1060s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.1060s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0830s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0900s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0950s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.1240s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0670s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0980s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0010s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.1280s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.1040s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.1160s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_push` [ RunTime:0.0900s ]
+SQL: SELECT * FROM `think_push` WHERE `user_id` = '147' AND `time` <= 1496104901 LIMIT 1   [ RunTime:0.0010s ]
+
+[ 2017-05-30T09:00:07+08:00 ] ::1 /index.php?m=&c=Flow
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ action_begin ] --START--
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0100s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0700s ]
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.103010s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.103010s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0160s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0090s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0090s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0090s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0030s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0700s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0090s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0100s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0030s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0090s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0030s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0070s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0070s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: select a.role_id from think_role_user as a where a.user_id=147  [ RunTime:0.0030s ]
+SQL: select distinct duty_id from think_role_duty as a where a.role_id in(7) [ RunTime:0.0280s ]
+SQL: SHOW COLUMNS FROM `think_flow_type` [ RunTime:0.0310s ]
+SQL: SHOW COLUMNS FROM `think_system_tag` [ RunTime:0.0280s ]
+SQL: SELECT FlowType.id AS id,FlowType.tag AS tag,FlowType.doc_no_format AS doc_no_format,FlowType.name AS name,FlowType.short AS short,FlowType.content AS content,FlowType.confirm AS confirm,FlowType.confirm_name AS confirm_name,FlowType.consult AS consult,FlowType.consult_name AS consult_name,FlowType.refer AS refer,FlowType.refer_name AS refer_name,FlowType.create_time AS create_time,FlowType.update_time AS update_time,FlowType.sort AS sort,FlowType.is_edit AS is_edit,FlowType.is_lock AS is_lock,FlowType.is_del AS is_del,FlowType.request_duty AS request_duty,FlowType.report_duty AS report_duty,FlowType.udf_tpl AS udf_tpl,FlowType.is_show AS is_show,SystemTag.name AS tag_name FROM think_flow_type FlowType  JOIN think_system_tag SystemTag ON FlowType.tag=SystemTag.id WHERE FlowType.is_del = 0 AND FlowType.request_duty IN ('14') ORDER BY FlowType.sort ASC  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_system_tag` [ RunTime:0.0080s ]
+SQL: SELECT `id`,`name` FROM `think_system_tag` WHERE `controller` = 'FlowType' ORDER BY sort asc  [ RunTime:0.0020s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.000000s ]
+INFO: [ action_begin ] --END-- [ RunTime:-0.481048s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.029002s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.029002s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001001s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001001s ]
+
+[ 2017-05-30T09:00:08+08:00 ] ::1 /index.php?m=&c=push&a=client
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.000000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0080s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0170s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0100s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0040s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0040s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0710s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0030s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0090s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0070s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0700s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0080s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0020s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0070s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0010s ]
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.008001s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.008001s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000000s ]
+
+[ 2017-05-30T09:00:08+08:00 ] ::1 /index.php?m=&c=push&a=server
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000000s ]
+INFO: [ action_begin ] --START--
+INFO: Run Common\Behavior\AuthCheckBehavior [ RunTime:0.001000s ]
+INFO: [ action_begin ] --END-- [ RunTime:0.001000s ]
+SQL: SHOW COLUMNS FROM `think_node` [ RunTime:0.0080s ]
+SQL: 		SELECT distinct c.id, c.pid, c.name, c.url,c.icon		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		AND c.pid = 0 		ORDER BY c.sort asc [ RunTime:0.0160s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SHOW COLUMNS FROM `think_system_folder` [ RunTime:0.0080s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_user_folder` [ RunTime:0.0070s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SELECT `name` FROM `think_node` WHERE `id` = '85' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_system_config` [ RunTime:0.0070s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SELECT `val` FROM `think_system_config` WHERE `code` = 'system_name' LIMIT 1   [ RunTime:0.0010s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0700s ]
+SQL: SELECT  'badge_count_system_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('sfid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('sfid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_system_folder  AS a WHERE is_del = 0 ORDER BY a.controller,a.sort asc [ RunTime:0.0020s ]
+SQL: SELECT  'badge_count_user_folder'    badge_function,  a.id                           fid,  a.sort,  CONCAT('ufid_',a.id)        AS id,  a.name,  a.controller,  a.sort,  CONCAT('ufid_',a.pid)       AS pid,  CONCAT(a.controller,'/folder?fid=',a.id) AS url FROM think_user_folder  AS a WHERE is_del = 0 and user_id=147 ORDER BY a.controller,a.sort asc [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_task_log` [ RunTime:0.0080s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 1 AND `status` < 20 AND `executor` = '147'  [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_role` [ RunTime:0.0080s ]
+SQL: 		SELECT c.badge_function,c.sort, c.id, c.pid, c.name, c.url,sum(b.admin) as 'admin' ,sum(b.write) as  'write' ,sum(b.read) as 'read',c.icon 		FROM think_role_user AS a, think_role_node b, think_node AS c 		WHERE a.role_id = b.role_id and c.is_del=0 		AND a.user_id =147		AND c.is_del =0 		AND c.id = b.node_id 		group by c.id		ORDER BY c.sort  [ RunTime:0.0690s ]
+SQL: SELECT `task_id` FROM `think_task_log` WHERE `type` = 2 AND `executor` = '40' AND `status` = '0'  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_task` [ RunTime:0.0070s ]
+SQL: SELECT `id` FROM `think_task`  [ RunTime:0.0020s ]
+SQL: select id from think_task task where status=0 and not exists (select * from think_task_log task_log where task.id=task_log.task_id) [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_mail` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` = 1 AND `read` = '0' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_flow_log` [ RunTime:0.0080s ]
+SQL: SELECT `flow_id` FROM `think_flow_log` WHERE `emp_no` = 'hill.j' AND `is_del` = 0 AND ( result is null )  [ RunTime:0.0020s ]
+SQL: SHOW COLUMNS FROM `think_flow` [ RunTime:0.0080s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_flow` WHERE `id` IN ('98','99','101','102','104','105','106') LIMIT 1   [ RunTime:0.0020s ]
+SQL: SELECT COUNT(*) AS tp_count FROM `think_mail` WHERE `user_id` = 147 AND `is_del` = '0' AND `folder` > 6 AND `read` = '0' LIMIT 1   [ RunTime:0.0010s ]
+SQL: SHOW COLUMNS FROM `think_push` [ RunTime:0.0080s ]
+SQL: SELECT * FROM `think_push` WHERE `user_id` = '147' AND `time` <= 1496106007 LIMIT 1   [ RunTime:0.0010s ]
+

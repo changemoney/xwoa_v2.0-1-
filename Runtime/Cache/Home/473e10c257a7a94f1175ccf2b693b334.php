@@ -1,0 +1,3 @@
+<?php if (!defined('THINK_PATH')) exit(); if(($readonly) == "true"): ?><textarea  disabled="disabled" class="form-control" name="udf_field_<?php echo ($id); ?>" rows="3" <?php if(!empty($validate)): ?>check="<?php echo ($validate); ?>" msg="<?php echo ($msg); ?>"<?php endif; ?>><?php echo ($val); ?></textarea>
+	<?php else: ?>
+	<textarea class="form-control" name="udf_field_<?php echo ($id); ?>" rows="3" <?php if(!empty($validate)): ?>check="<?php echo ($validate); ?>" msg="<?php echo ($msg); ?>"<?php endif; ?>><?php echo ($val); ?></textarea><?php endif; ?>

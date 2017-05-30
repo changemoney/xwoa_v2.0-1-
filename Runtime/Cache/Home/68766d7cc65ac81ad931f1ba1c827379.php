@@ -1,0 +1,1 @@
+<?php if (!defined('THINK_PATH')) exit();?><script>alert('您的收件人邮箱不存在 ！！！');location.href='/index.php?m=&c=MailAccount&a=index'</script>
