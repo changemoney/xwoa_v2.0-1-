@@ -516,6 +516,15 @@ class FlowController extends HomeController {
 	
 	/** 插入新新数据  **/
 	protected function _insert($name = CONTROLLER_NAME) {
+	    
+	        $emp_no = get_emp_no();
+	        $where['emp_no'] = array('eq', $emp_no);
+	        $self_email = M("User") -> where($where) -> getField("email");
+	     
+	        if (empty($self_email)) {
+	          $this -> error('您没有配置邮箱，无法提交流程');
+	        }
+	        
             $model = D($name);
 	        if (false === $model -> create()) {
 	            $this -> error($model -> getError());
@@ -529,11 +538,12 @@ class FlowController extends HomeController {
 	        }
 	        $email_confirm = D("Flow") -> _conv_email_list($model -> confirm);
 	        $email_consult = D("Flow") -> _conv_email_list($model -> consult);
-	        
+
 	        //获取的邮件内容
 	        $content = $model -> udf_data = D('UdfField') -> get_field_data();
 	        $body = D("Flow") ->_conv_email_content($content);
 	        $flow_id = $model -> add();
+	        
 	        if ($flow_id !== false) {//保存成功
 	            //$flow_filed = D("UdfField") -> set_field($list);
 	            if(!empty($email_confirm)){
