@@ -24,7 +24,7 @@ class MailAccountController extends HomeController {
 		$this -> display();
 	}
 
-	protected function _set_email($email) {	
+	protected function _set_email($email) {		
 		$data['id'] = get_user_id();
 		$data['email'] = $email;
 		M("User") -> save($data);
@@ -54,8 +54,7 @@ class MailAccountController extends HomeController {
 		}
 	}
 
-	protected function _update($name = CONTROLLER_NAME) { 
-	    \Think\Log::write('---  MailAccountController _update ----','DEBUG');
+	protected function _update($name = CONTROLLER_NAME) {
 		$model = M($name);
 		if (false === $model -> create()) {
 			$this -> error($model -> getError());

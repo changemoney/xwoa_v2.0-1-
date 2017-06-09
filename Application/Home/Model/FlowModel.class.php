@@ -245,19 +245,26 @@ class  FlowModel extends CommonModel {
 	    $arr_row = array_filter(explode(",", $val));
 	    $str_email_content = '';
 	    foreach ($arr_row as $item) {
-	            $temp = explode(":", $item);
+	            $temp = explode(":", $item,2);
 	            preg_match('/\d+/',$temp[0],$arr_id);
+	            \Think\Log::write('--- Email内容222 $arr_id[0] ---'.$arr_id[0],'DEBUG');
 	            $row_id = $arr_id[0];
+	            \Think\Log::write('--- Email内容3333 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('"','',$temp[1]);
+	            \Think\Log::write('--- Email内容4444 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('{','',$temp[1]);
+	            \Think\Log::write('--- Email内容5555 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('}','',$temp[1]);
+	            \Think\Log::write('--- Email内容6666 $row_data  ---'.$temp[1],'DEBUG');
 	            $row_data = $temp[1];
+	            \Think\Log::write('--- Email内容7777 $row_data  ---'.$temp[1],'DEBUG');
+	            
 	            $row_name = M("UdfField") -> where("id= $row_id") -> getField('name');
 	            if (!empty($row_name)) {
-	                $str_email_content .= "<tr><th>".$row_name.":"."</th>"."<td>".$row_data."</td></tr>";
+	                $str_email_content .= "<tr><th style='width:100px;padding:3px;'>".$row_name.":"."</th>"."<td style='min-width: 400px;padding-left:10px;'>".$row_data."</td></tr>";
 	            }
 	    }
-	    $str_email_content = "<table width='400' border='1' cellspacing='0' cellpadding='5'>".$str_email_content ."</table>";
+	    $str_email_content = "<table style='white-space: nowrap;' border='1' cellspacing='0' cellpadding='5'>".$str_email_content ."</table>";
 	    return $str_email_content;
 	}
 	

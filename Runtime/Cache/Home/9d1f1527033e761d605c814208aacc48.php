@@ -89,130 +89,55 @@
 				</div>
 				<div class="wrapper wrapper-content">
 					
-<?php echo W('PageHeader/adv_search',array('name'=>$folder_name,'search'=>'M'));?>
-<form method="post" name="form_adv_search" id="form_adv_search">
-	<div class="adv_search panel panel-default hidden" id="adv_search">
-		<div class="panel-heading">
-			<div class="row">
-				<h4 class="col-xs-6">高级搜索</h4>
-				<div class="col-xs-6 text-right">
-					<a  class="btn btn-sm btn-info" onclick="submit_adv_search();">搜索</a>
-					<a  class="btn btn-sm" onclick="close_adv_search();">关闭</a>
-				</div>
-			</div>
-		</div>
-		<div class="panel-body">
-			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="li_name">标题：</label>
-				<div class="col-sm-8">
-					<input  class="form-control" type="text" id="li_name" name="li_name" >
-				</div>
-			</div>
-
-			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="eq_type">流程类型：</label>
-				<div class="col-sm-8">
-					<select class="form-control" name="eq_type" id="eq_type">
-						<option value="">全部</option>
-						<?php echo fill_option($flow_type_list);?>
-					</select>
-				</div>
-			</div>
-			
-			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="eq_user_name">登录人：</label>
-				<div class="col-sm-8">
-					<input  class="form-control" type="text" id="eq_user_name" name="eq_user_name" >
-				</div>
-			</div>
-
-			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="be_create_time">登录时间：</label>
-				<div class="col-sm-8">
-					<div class="input-daterange input-group" >
-					    <input type="text" class="input-sm form-control text-center" name="be_create_time" readonly="readonly"/>
-						<span class="input-group-addon">-</span>
-						<input type="text" class="input-sm form-control text-center" name="en_create_time" readonly="readonly" />
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</form>
-
-	<form method="post" id="form_adv_search" name="form_adv_search" method="post">
-		<input type="hidden" name="ajax" id="ajax" value="1">
-		<div class="operate panel panel-default">
+	<?php echo W('PageHeader/simple',array('name'=>'账户设置'));?>
+	<div class="space-8"></div>
+	<?php if($auth['write']): ?><div class="operate panel panel-default">
 			<div class="panel-body">
-				<div class="pull-left form-inline">
-					<a onclick="export_excel()" class="btn btn-sm btn-primary">导出</a>
+				<div class="pull-left">
+					<a class="btn btn-sm btn-primary" href="<?php echo U('index');?>">返回</a>
+				</div>
+				<div class="pull-right">
+					<a class="btn btn-sm btn-primary" onclick="add()">新建</a>
 				</div>
 			</div>
-		</div>
-	</form>
-
-<div class="ul_table ul_table_responsive">
-	<ul>
-		<li class="thead" style="padding-left:10px">
-			<div class="pull-left">
-			    <span class="col-6 " align=center>
-			    <input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all" /></span>
-				<span class="col-6 " align=center>编号</span>
-				<span class="col-8 " align=center>类型</span>
-				<span class="col-22 " align=center>标题</span>
-			</div>
-			<div class="pull-right">
-			    <span class="col-8 " align=center style="padding-right:10px">产品名称</span>	
-			    <span  class="col-8" align=center style="padding-right:10px">收款人</span>
-			    <span  class="col-8" align=center style="padding-right:10px">付款金额</span>
-			    <span  class="col-12" align=center style="padding-right:10px">银行名称</span>
-			    <span  class="col-22" align=center style="padding-right:10px">银行账号</span>
-				<span  class="col-12" align=center>申请时间</span>				
-				<span  class="col-12" align=center>申请人</span>
-			</div>
-			<!-- <div class="autocut auto" align=center>
-				标题
-			</div> -->
-		</li>
-	</ul>
-	<?php if(empty($list)): ?><ul>
-			<li class="no-data">
-				没找到数据
-			</li>
-		</ul>
-		<?php else: ?>
-		<form  id="form_user" name="form_data" method="post">
-			<ul>
-			    <?php if(is_array($list)): foreach($list as $key=>$vo): ?><li class="tbody">
-						<div class="pull-left">
-						    <span class="col-6" align=center>
-						    <input class="ace" type="checkbox" name="user_id[]" value="<?php echo ($vo["id"]); ?>" /></span>
-							<span class="col-6" align=center><?php echo ($vo["id"]); ?></span>
-							<span class="col-8" align=center> <?php echo ($vo["pay_type"]); ?></span>
-							<span class="col-22" align=center> <?php if((strlen($vo["pay_object"])) == "0"): ?>无标题
-							<?php else: echo ($vo["pay_object"]); endif; ?></span>
-						</div>
-						<div class="pull-right">
-						    <span class="col-8 " align=center style="padding-right:10px"><?php echo ($vo["product_name"]); ?></span>
-						    <span class="col-8" align=center style="padding-right:10px"><?php echo ($vo["pay_to"]); ?></span>
-			                <span class="col-8" align=center style="padding-right:10px"><?php echo ($vo["pay_amount"]); ?></span>
-						    <span class="col-12" align=center style="padding-right:10px"><?php echo ($vo["pay_bank"]); ?></span>
-							<span class="col-22" align=center style="padding-right:10px"><?php if((strlen($vo["pay_account"])) == "0"): ?>无账号
-							<?php else: echo ($vo["pay_account"]); endif; ?></span>
-							<span class="col-12" align=center><?php echo (to_date($vo["create_time"],'Y-m-d H:i')); ?></span>
-							<span class="col-12" align=center><?php echo ($vo["user_name"]); ?></span>
-						</div>
-						<!-- <div class="autocut auto" align=center>
-							<?php if((strlen($vo["pay_object"])) == "0"): ?>无标题
-							<?php else: echo ($vo["pay_object"]); endif; ?>         
-			            </div> -->
-					</li><?php endforeach; endif; ?>
-			</ul>
-		</form>
-		<div class="pagination">
-			<?php echo ($page); ?>
 		</div><?php endif; ?>
-</div>
+	<div class="ul_table">
+		<ul>
+			<li class="thead">
+				<span class="col-10 ">账户名称</span>
+				<span class="col-8 ">日期</span>
+				<span class="col-20 ">开户银行</span>
+				<span class="col-20 ">帐号</span>
+				<span class="col-8 text-center">初始金额</span>
+				<span class="col-8 text-center">账户余额</span>
+				<div class="pull-right">
+					<span class="col-8 text-center">操作</span>
+				</div>
+				<span class="auto autocut">备注 </span>
+			</li>
+			<?php if(empty($list)): ?><li class="no-data">
+					没找到数据
+				</li>
+				<?php else: ?>
+				<?php if(is_array($list)): foreach($list as $key=>$vo): ?><li class="tbody">
+						<span class="col-10 "><a href="<?php echo U('edit_account','account_id='.$vo['id']);?>"><?php echo ($vo["name"]); ?></a></span>
+						<span class="col-8"><?php echo (to_date($vo["create_time"],'Y-m-d')); ?></span>
+						<span class="col-20 "><?php echo ($vo["bank"]); ?></span>
+						<span class="col-20 "><?php echo ($vo["no"]); ?></span>
+						<span class="col-8 text-center"><?php echo ($vo["init"]); ?></span>
+						<span class="col-8 text-center"><?php echo ($vo["balance"]); ?></span>
+						<div class="pull-right">
+							<span class="col-8 text-center"><a onclick="del(<?php echo ($vo["id"]); ?>);">删除</a></span>
+						</div>
+						<span class="auto autocut"><?php echo ($vo["remark"]); ?> </span>
+
+					</li><?php endforeach; endif; ?>
+				<div class="pagination">
+					<?php echo ($page); ?>
+				</div><?php endif; ?>
+		</ul>
+	</div>
+
 
 				</div>
 			</div>
@@ -300,37 +225,22 @@
 	}); 
 </script>
 		
-<script type="text/javascript">
-	$(document).ready(function() {
-		set_return_url();
-	}); 
-	
-   function export_excel() {
-	    if ($("input[name='user_id[]']:checked").length == 0) {
-		     ui_error('请选择要导出的数据 ');
-		     return;
-	    }
-	    var vars = $("#form_user").serialize();
-		window.open(fix_url("<?php echo U('export');?>?" + vars), "_self");
-	}
-	
-	/* function export_excel() {
-		if ($("input[name='user_id[]']:checked").length == 0) {
-			ui_error('请选择要导出的数据 ');
-			return;
+	<script type="text/javascript">
+		$(document).ready(function() {
+			set_return_url(location.href,1);
+		});
+
+		function add() {
+			window.open("<?php echo U('add_account');?>", "_self");
 		}
 
-		  ui_confirm('确定要导出吗?', function() {
-			sendAjax("<?php echo U('export');?>", vars, function(data) {
-				if (data.status) {
-					ui_alert(data.info, function() {
-						location.reload(true);
-					});
-				}
+		function del(id) {
+			ui_confirm('确定要删除吗?', function() {
+				window.open(fix_url("<?php echo U('del_account');?>?account_id=" + id), "_self");
 			});
-		}); 
-	} */
-</script>
+		};
+
+	</script>
 
 	</body>
 </html>

@@ -529,6 +529,7 @@ class HomeController extends Controller {
 
 	//生成查询条件
 	protected function _search($model = null) {
+	    
 		$map = array();
 		//过滤非查询条件
 		$request = array_filter(array_keys(array_filter($_REQUEST)), "filter_search_field");
@@ -536,8 +537,9 @@ class HomeController extends Controller {
 			$model = D(CONTROLLER_NAME);
 		}
 		$fields = get_model_fields($model);
+		
 		foreach ($request as $val) {
-			$field = substr($val, 3);
+			$field = substr($val, 3);				
 			$prefix = substr($val, 0, 3);
 			if (in_array($field, $fields)) {
 				if ($prefix == "be_") {
@@ -559,6 +561,7 @@ class HomeController extends Controller {
 					$map[$field] = array('like', '%' . trim($_REQUEST[$val]) . '%');
 				}
 				if ($prefix == "eq_") {
+				    
 					$map[$field] = array('eq', trim($_REQUEST[$val]));
 				}
 				if ($prefix == "gt_") {

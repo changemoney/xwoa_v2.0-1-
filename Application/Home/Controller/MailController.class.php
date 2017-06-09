@@ -1,4 +1,4 @@
-<?php  
+<?php
 /*--------------------------------------------------------------------
  小微OA系统 - 让工作更轻松快乐
 
@@ -9,9 +9,6 @@
  Support: https://git.oschina.net/smeoa/xiaowei
  --------------------------------------------------------------*/
 namespace Home\Controller;
-
-include 'class.smtp.php';
-include 'class.phpmailer.php';
 
 class MailController extends HomeController {
 	protected $config = array('app_type' => 'personal');
@@ -216,9 +213,11 @@ class MailController extends HomeController {
 		
 		$title = I('name');
 		$body = I('content');
+
 		$to = I('to');
 		$cc = I('cc');
 		$bcc = I('bcc');
+		
 		//$this -> _set_recent($to . $cc . $bcc);
 
 		import("@.ORG.Util.send");
@@ -439,7 +438,6 @@ class MailController extends HomeController {
 		$this -> assign('prefix', $prefix);
 
 		$id = I('id');
-		\Think\Log::write('--- 回复邮件内容 $id----'.$id,'DEBUG');
 		$where['id'] = array('eq', $id);
 		$where['user_id'] = array('eq', get_user_id());
 
@@ -802,6 +800,7 @@ class MailController extends HomeController {
 	        //回复到这个邮箱
 	        $name = "";
 	        $arr_to = array_filter(explode('|', $to));
+	        
 	        foreach ($arr_to as $item) {
 	            $arr_tmp = explode('@', $item);
 	            $mail -> AddAddress($item, $arr_tmp[0]);
@@ -828,13 +827,15 @@ class MailController extends HomeController {
 	        
 	        $create_time = to_date(time(), 'm月d日H:i');
 
-	        if (strpos($arr_row, "外部支付") !== false) {
+	        if (strpos($arr_row[0], "外部支付") !== false) {
 	            $subject = "【外部支付】". $subject."-". $create_time;
-	        }else if(strpos($arr_row, "内部支付") !== false){
+	        }else if(strpos($arr_row[0], "内部支付") !== false){
 	            $subject = "【内部支付】". $subject."-".$create_time;
 	        }
+
 	        // 邮件主题
-	        $mail->Subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+	        $mail->Subject = $subject;//"=?UTF-8?B?" . base64_encode($subject) . "?=";
+	        
 	        $str_matter = "<p style='line-height:12px;'>&nbsp;Dear : $name</p>
 	        <p style='line-height:12px;'>&nbsp;&nbsp;&nbsp;&nbsp;以下费用请审批，谢谢！</p>";
 	        
@@ -857,7 +858,7 @@ class MailController extends HomeController {
 	        $model -> cc = $cc;
 	        $model -> flow_id = $flow_id;
 	        $model -> content = $body;
-	        $model -> subject = $subject;
+	        $model -> subject = $subject;//base64_encode($subject);
 	        
 	        $model -> add();//新增邮件
 	        if ($mail -> Send()) {
@@ -866,9 +867,9 @@ class MailController extends HomeController {
 	        } else {
 	            $this -> error($mail -> ErrorInfo);
 	        };
-     
 	    } catch (phpmailerException $e) {
 	        echo $e -> errorMessage();
+	        
 	        //Pretty error messages from PHPMailer
 	    } catch (Exception $e) {
 	        echo $e -> getMessage();
@@ -880,15 +881,16 @@ class MailController extends HomeController {
 	
 	//回复流程邮件
 	public function reply_flow_mail($flow_id) {
-	    
+
 	    $model = M('Mail');
 
 	    $id =  $model -> where("flow_id={$flow_id}") -> getField("id");
 	    $body = $model-> where("flow_id={$flow_id}") -> getField("content");
 	    $subject = $model-> where("flow_id={$flow_id}") -> getField("subject");
-	
+	    //$decode_subject = base64_decode($subject);
+	    
 	    $vo = $model -> getById($id);
-    
+	    
 	    $from = $this -> mail_contact($vo["from"]);
 	    $to = $this -> mail_contact($vo["to"]);
 	    $cc = $this -> mail_contact($vo["cc"]);
@@ -900,10 +902,6 @@ class MailController extends HomeController {
 	    }
 	    
 	    $create_time = to_date($vo["create_time"], 'Y年m月d日   H:i:s');
-	    
-	    $mail_from = $model-> getField("from");
-	    $mail_to = $model-> getField("to");
-	    $mail_cc = $model-> getField("cc");
 	    
 	    $flow_log = M("FlowLog");
 	    $emp_no = get_emp_no();
@@ -966,20 +964,29 @@ class MailController extends HomeController {
 	        // 这里指定字符集！
 	        $mail -> SetFrom($mail_account['email'], $mail_account['mail_name']);
 	        //发送者邮箱
-	        $mail -> AddReplyTo($mail_account['email'], $mail_account['mail_name']);
+	       // $mail -> AddReplyTo($mail_account['email'], $mail_account['mail_name']);
 	        //回复到这个邮箱
-	        $arr_to = array_filter(explode('|', $mail_from));
+	        $arr_to = array_filter(explode('|', $vo["from"]));
+
+	        $arr_to1 = array_filter(explode('|', $vo["to"]));
+
+	        
+	        //回复申请人
 	        foreach ($arr_to as $item) {
 	            $arr_tmp = explode('@', $item);
 	            $mail -> AddAddress($item,$arr_tmp[0]);
 	        }
-	        //$mail -> AddAddress($arr_to[1],$arr_to[0]);
-	        // 添加收件人邮箱和姓名
-	        $arr_cc = array_filter(explode('|', $vo["cc"]));
+	        
+	        foreach ($arr_to1 as $item) {
+	            if(strpos($item,$mail_account['email']) === false){
+	                $arr_tmp = explode('@', $item);
+	                $mail -> AddAddress($item,$arr_tmp[0]);
+	            }
+	        }
+
+	        $arr_cc = array_filter(explode('|',  $vo["cc"]));
 	        foreach ($arr_cc as $item) {
 	                $arr_tmp = explode('@', $item);
-	                \Think\Log::write('--- 流程回复 抄送人$item ----'.$item,'DEBUG');
-	                \Think\Log::write('--- 流程回复 抄送人名$arr_tmp["0"] ----'.$arr_tmp["0"],'DEBUG');
 	                $mail -> AddCC($item, $arr_tmp[0]);
 	        }
 	        // set word wrap
@@ -987,7 +994,7 @@ class MailController extends HomeController {
 	        // 发送 HTML邮件
 	        $mail->IsHTML (false );
 	        // 邮件主题
-	        $mail->Subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+	        $mail->Subject = "Re: ".$subject;//"."=?UTF-8?B?" . base64_encode($decode_subject) . "?=";
 	        // 邮件内容
 	        $mail -> MsgHTML($reply_body);
 	        //
@@ -998,27 +1005,50 @@ class MailController extends HomeController {
 	            $this -> success("发送成功");
 	        } else {
 	            $this -> error($mail -> ErrorInfo);
+	            $this-> writelog("maillog",$mail -> ErrorInfo);
 	        };
-
-	       // $mail -> SmtpConnect();
-	        // $isConnect = $pm -> IsHTML (false );
-	        \Think\Log::write('--- 邮件配置测试 ----','DEBUG');
-	        if ($mail -> SmtpConnect()) {
-	            $this -> success('配置成功!');
-	            //成功提示
-	        } else {
-	            $this -> error('配置失败!');
-	            //错误提示
-	        }
-	        
-	        
 	    } catch (phpmailerException $e) {
 	        echo $e -> errorMessage();
+	        $this-> writelog("maillog",$e -> errorMessage());
 	        //Pretty error messages from PHPMailer
 	    } catch (Exception $e) {
 	        echo $e -> getMessage();
+	        $this-> writelog("maillog",$e -> errorMessage());
 	        //Boring error messages from anything else!
 	    }
+	}
+	
+	/**
+	 *日志记录，按照"Ymd.log"生成当天日志文件
+	 * 日志路径为：入口文件所在目录/logs/$type/当天日期.log.php，例如 /logs/error/20120105.log.php
+	 * @param string $type 日志类型，对应logs目录下的子文件夹名
+	 * @param string $content 日志内容
+	 * @return bool true/false 写入成功则返回true
+	 */
+	function writelog($type="",$content=""){
+	    if(!$content || !$type){
+	        return FALSE;
+	    }
+	    $dir=getcwd().DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR.$type;
+	    if(!is_dir($dir)){
+	        if(!mkdir($dir)){
+	            return false;
+	        }
+	    }
+	    $filename=$dir.DIRECTORY_SEPARATOR.date("Ymd",time()).'.log.php';
+	    $logs=include $filename;
+	    if($logs && !is_array($logs)){
+	        unlink($filename);
+	        return false;
+	    }
+	    $logs[]=array("time"=>date("Y-m-d H:i:s"),"content"=>$content);
+	    $str="<?php \r\n return ".var_export($logs, true).";";
+	    if(!$fp=@fopen($filename,"wb")){
+	        return false;
+	    }
+	    if(!fwrite($fp, $str))return false;
+	    fclose($fp);
+	    return true;
 	}
 	
 	function mail_contact($str, $mode = "show") {
@@ -1049,14 +1079,6 @@ class MailController extends HomeController {
 	        }
 	    }
 	    return $tmp;
-	}
-	
-	public function testEmailServer(){
-	    \Think\Log::write('--- 邮件配置测试 ----','DEBUG');
-	    import("@.ORG.Util.send");
-	    //从PHPMailer目录导入class.send.php类文件
-	    $mail = new \PHPMailer(true);
-	    return $mail -> testEmailServer();
 	}
 }
 ?>

@@ -208,9 +208,8 @@ class MailController extends HomeController {
 	//  发送邮件
 	//--------------------------------------------------------------------
 	public function send() {
-	    \Think\Log::write('--- 调用 send mail 方法和函数 ----','DEBUG');
+
 		$mail_account = $this -> _get_mail_account();
-		\Think\Log::write('--- send mail_account ----'.$mail_account,'DEBUG');
 		
 		$title = I('name');
 		\Think\Log::write('--- send name ----'.$title,'DEBUG');
@@ -461,7 +460,6 @@ class MailController extends HomeController {
 	//--------------------------------------------------------------------
 
 	public function receve($user_id = null) {
-	    \Think\Log::write('--- mail controller receve  ！！！！！---','DEBUG');
 		set_time_limit(0);
 		if (empty($user_id)) {
 			$user_id = get_user_id();
@@ -777,7 +775,6 @@ class MailController extends HomeController {
 	 * 
 	 */
 	public function send_flow_mail($to,$cc,$body,$flow_id,$name){
-
 	    //获取邮件账户函数
 	    $mail_account = $this -> _get_mail_account();
 	    //新建一个邮件发送类对象
@@ -814,7 +811,6 @@ class MailController extends HomeController {
 	            // 添加收件人邮箱和姓名
 	            $name = $arr_tmp[0];
 	        }
-
 	        //if(!empty($arr_cc)){//添加抄送人邮箱和姓名
 	            $arr_cc = array_filter(explode('|', $cc));
 	            foreach ($arr_cc as $item) {
@@ -833,10 +829,12 @@ class MailController extends HomeController {
 	        $form_data = $flow['udf_data'];
 	        $arr_row = array_filter(explode(",", $form_data));
 	        
-	        if (strpos($arr_row, "外部支付") !== false) {
-	            $subject = "【外部支付】". $subject;
-	        }else if(strpos($arr_row, "内部支付") !== false){
-	            $subject = "【内部支付】". $subject;
+	        $create_time = to_date(time(), 'm月d日H:i');
+
+	        if (strpos($arr_row[0], "外部支付") !== false) {
+	            $subject = "【外部支付】". $subject."-". $create_time;
+	        }else if(strpos($arr_row[0], "内部支付") !== false){
+	            $subject = "【内部支付】". $subject."-".$create_time;
 	        }
 
 	        // 邮件主题
@@ -854,7 +852,6 @@ class MailController extends HomeController {
 	        if (false === $model -> create()) {
 	            $this -> error($model -> getError());
 	        }
-	        
 	        $model -> user_id = get_user_id();
 	        $model -> folder = 2;
 	        $model -> read = 1;
@@ -864,12 +861,11 @@ class MailController extends HomeController {
 	        $model -> cc = $cc;
 	        $model -> flow_id = $flow_id;
 	        $model -> content = $body;
-
+	        $model -> subject = $subject;
+	        
 	        $model -> add();//新增邮件
-
 	        if ($mail -> Send()) {
 	            cookie('current_node', 105);
-				\Think\Log::write('--- 回复邮件 发送成功 ----'.$cc,'DEBUG');
 	            $this -> success("发送成功");
 	        } else {
 	            $this -> error($mail -> ErrorInfo);
@@ -887,18 +883,23 @@ class MailController extends HomeController {
 	
 	//回复流程邮件
 	public function reply_flow_mail($flow_id) {
-	    
-	    \Think\Log::write('--- reply_flow_mail 11111 ---','DEBUG');
 
+		\Think\Log::write('--- HUIFULIUCHENG $flow_id ----'.$flow_id,'DEBUG');
+	    
 	    $model = M('Mail');
 
 	    $id =  $model -> where("flow_id={$flow_id}") -> getField("id");
+		\Think\Log::write('--- HUIFULIUCHENG  $ID ----'.$id,'DEBUG');
 	    $body = $model-> where("flow_id={$flow_id}") -> getField("content");
-	    $subject = $model-> where("flow_id={$flow_id}") -> getField("name");
+	    $subject = $model-> where("flow_id={$flow_id}") -> getField("subject");
 	
 	    $vo = $model -> getById($id);
 	
+	    \Think\Log::write('--- HUIFULIUCHENG  $vo["to"] ----'.$vo["to"],'DEBUG');
+	    \Think\Log::write('--- HUIFULIUCHENG  $vo["cc"] ----'.$vo["cc"],'DEBUG');
+	    
 	    $from = $this -> mail_contact($vo["from"]);
+        \Think\Log::write('--- HUIFULIUCHENG  $from ----'.$from,'DEBUG');
 	    $to = $this -> mail_contact($vo["to"]);
 	    $cc = $this -> mail_contact($vo["cc"]);
 	    
@@ -910,9 +911,10 @@ class MailController extends HomeController {
 	    
 	    $create_time = to_date($vo["create_time"], 'Y年m月d日   H:i:s');
 	    
-	    $mail_from = $model-> getField("from");
-	    $mail_to = $model-> getField("to");
-	    $mail_cc = $model-> getField("cc");
+	    //$mail_from = $model-> getField("from");
+        \Think\Log::write('--- HUIFULIUCHENG  $mail_from ----'.$mail_from,'DEBUG');
+	    //$mail_to = $model-> getField("to");
+	    //$mail_cc = $model-> getField("cc");
 	    
 	    $flow_log = M("FlowLog");
 	    $emp_no = get_emp_no();
@@ -920,18 +922,6 @@ class MailController extends HomeController {
 	    $where['flow_id'] = array('eq', $flow_id);
 	    $flow_comment = $flow_log -> where($where) -> getField("comment");
 	    
-	    $flow = M("Flow") -> find($flow_id);
-	    $form_data = $flow['udf_data'];
-	    $arr_row = array_filter(explode(",", $form_data));
-	     
-	    if (strpos($arr_row, "外部支付") !== false) {
-	        $subject = "【外部支付】". $subject;
-	    }else if(strpos($arr_row, "内部支付") !== false){
-	        $subject = "【内部支付】". $subject;
-	    }
-	    
-	    \Think\Log::write('--- reply_flow_mail 22222 ---','DEBUG');
-
 	    if(strlen($flow_comment) > 1){
 	        $reply_comment = $flow_comment;
 	    }else{
@@ -989,13 +979,28 @@ class MailController extends HomeController {
 	        //发送者邮箱
 	        $mail -> AddReplyTo($mail_account['email'], $mail_account['mail_name']);
 	        //回复到这个邮箱
-	        $arr_to = array_filter(explode('|', $mail_from));
-	        $mail -> AddAddress($arr_to[1],$arr_to[0]);
+	        $arr_to = array_filter(explode('|', $vo["from"]));
+
+	        foreach ($arr_to as $item) {
+	            $arr_tmp = explode('@', $item);
+				\Think\Log::write('--- HUIFULIUCHENG  $item ----'.$item ,'DEBUG');
+				\Think\Log::write('--- HUIFULIUCHENG  $arr_tmp[0] ----'.$arr_tmp[0] ,'DEBUG');
+	            $mail -> AddAddress($item,$arr_tmp[0]);
+	        }
+	        //$mail -> AddAddress($arr_to[1],$arr_to[0]);
 	        // 添加收件人邮箱和姓名
-	        
-	        if(!empty($arr_cc)){//添加抄送人邮箱和姓名
-	            $arr_cc = array_filter(explode('|', $mail_cc));
-	            $mail -> AddCC($arr_cc[1],$arr_cc[0]);
+	        //if(!empty($arr_cc)){//添加抄送人邮箱和姓名
+// 	            $arr_cc = array_filter(explode('|', $cc));
+// 	            \Think\Log::write('--- 回复抄送人 $arr_cc----'.$arr_cc,'DEBUG');
+// 	            $mail -> AddCC($arr_cc[1],$arr_cc[0]);
+	        //}
+	        $arr_cc = array_filter(explode('|',  $vo["cc"]));
+	        \Think\Log::write('--- 流程回复 $arr_cc ----'.$arr_cc,'DEBUG');
+	        foreach ($arr_cc as $item) {
+	                $arr_tmp = explode('@', $item);
+	                \Think\Log::write('--- 流程回复 抄送人$item ----'.$item,'DEBUG');
+	                \Think\Log::write('--- 流程回复 抄送人名$arr_tmp["0"] ----'.$arr_tmp["0"],'DEBUG');
+	                $mail -> AddCC($item, $arr_tmp[0]);
 	        }
 	        // set word wrap
 	        //$mail->WordWrap = 50;

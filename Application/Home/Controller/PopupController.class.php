@@ -36,23 +36,28 @@ class PopupController extends HomeController {
 				$dept = tree_to_list(list_to_tree( M("Dept") -> where('is_del=0') -> select(), $id));
 				$dept = rotate($dept);
 				$dept = implode(",", $dept['id']) . ",$id";
-
 			case "emp" :
 				$model = M("Dept");
 				$dept = tree_to_list(list_to_tree( M("Dept") -> where('is_del=0') -> select(), $id));
 				$dept = rotate($dept);
 				$dept = implode(",", $dept['id']) . ",$id";
-
 				$model = D("UserView");
 
 				$where['dept_id'] = array('in', $dept);
 				$where['is_del'] = array('eq', 0);
 				$data = $model -> where($where) -> select();
+				//目前只针对审批数据，后期进行进一步优化
+				foreach ($data as $k => $item){
+				    //判断审批人和抄送人是否包含自己
+				    if(strpos($item['emp_no'], get_emp_no())!== false){
+				        //删除对应的元素
+				        unset($data[$k]);
+				    }
+				}
 				break;
 
 			case "group" :
 				$user_list = D("Group") -> get_user_list($id);
-
 				$model = D("UserView");
 				if (!empty($user_list)) {
 					$where['id'] = array('in', $user_list);
@@ -227,7 +232,6 @@ class PopupController extends HomeController {
 	}
 
 	function confirm() {
-
 		$plugin['jquery-ui'] = true;
 		$this -> assign("plugin", $plugin);
 
@@ -248,7 +252,6 @@ class PopupController extends HomeController {
 	}
 
 	function flow() {
-
 		$plugin['jquery-ui'] = true;
 		$this -> assign("plugin", $plugin);
 

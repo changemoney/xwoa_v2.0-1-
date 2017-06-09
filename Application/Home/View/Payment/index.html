@@ -69,17 +69,21 @@
 			    <span class="col-6 " align=center>
 			    <input class="ace" type="checkbox" name="id-toggle-all" id="id-toggle-all" /></span>
 				<span class="col-6 " align=center>编号</span>
-				<span class="col-12 " align=center>类型</span>		
+				<span class="col-8 " align=center>类型</span>
+				<span class="col-22 " align=center>标题</span>
 			</div>
 			<div class="pull-right">
-			    <span  class="col-18" align=center style="padding-right:10px">银行名称</span>
-			    <span  class="col-22" align=center style="padding-right:10px">银行账号</span>	
+			    <span class="col-8 " align=center style="padding-right:10px">产品名称</span>	
+			    <span  class="col-8" align=center style="padding-right:10px">收款人</span>
+			    <span  class="col-8" align=center style="padding-right:10px">付款金额</span>
+			    <span  class="col-12" align=center style="padding-right:10px">银行名称</span>
+			    <span  class="col-22" align=center style="padding-right:10px">银行账号</span>
 				<span  class="col-12" align=center>申请时间</span>				
 				<span  class="col-12" align=center>申请人</span>
 			</div>
-			<div class="autocut auto" align=center>
+			<!-- <div class="autocut auto" align=center>
 				标题
-			</div>
+			</div> -->
 		</li>
 	</ul>
 	<empty name="list">
@@ -97,21 +101,27 @@
 						    <span class="col-6" align=center>
 						    <input class="ace" type="checkbox" name="user_id[]" value="{$vo.id}" /></span>
 							<span class="col-6" align=center>{$vo.id}</span>
-							<span class="col-12" align=center> {$vo.pay_type}</span>
+							<span class="col-8" align=center> {$vo.pay_type}</span>
+							<span class="col-22" align=center> <eq name="vo.pay_object|strlen" value="0">
+								无标题
+							<else/>{$vo.pay_object}</eq></span>
 						</div>
 						<div class="pull-right">
-						    <span class="col-18" align=center style="padding-right:10px">{$vo.pay_bank}</span>
+						    <span class="col-8 " align=center style="padding-right:10px">{$vo.product_name}</span>
+						    <span class="col-8" align=center style="padding-right:10px">{$vo.pay_to}</span>
+			                <span class="col-8" align=center style="padding-right:10px">{$vo.pay_amount}</span>
+						    <span class="col-12" align=center style="padding-right:10px">{$vo.pay_bank}</span>
 							<span class="col-22" align=center style="padding-right:10px"><eq name="vo.pay_account|strlen" value="0">
 								无账号
 							<else/>{$vo.pay_account}</eq></span>
 							<span class="col-12" align=center>{$vo.create_time|to_date='Y-m-d H:i'}</span>
 							<span class="col-12" align=center>{$vo.user_name}</span>
 						</div>
-						<div class="autocut auto" align=center>
+						<!-- <div class="autocut auto" align=center>
 							<eq name="vo.pay_object|strlen" value="0">
 								无标题
 							<else/>{$vo.pay_object}</eq>         
-			            </div>
+			            </div> -->
 					</li>
 				</foreach>
 			</ul>
