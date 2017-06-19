@@ -550,45 +550,51 @@ class PHPMailer {
 	 * @return bool
 	 */
 	public function Send() {
-	    \Think\Log::write('--- Send 11111 ----','DEBUG');
 		try {
 			if ((count($this -> to) + count($this -> cc) + count($this -> bcc)) < 1) {
 				throw new phpmailerException($this -> Lang('provide_address'), self::STOP_CRITICAL);
 			}
+            \Think\Log::write('--- send 11111 ----','DEBUG');
 			// Set whether the message is multipart/alternative
 			if (!empty($this -> AltBody)) {
 				$this -> ContentType = 'multipart/alternative';
 			}
+            \Think\Log::write('--- send 22222 ----','DEBUG');
 			$this -> error_count = 0;
 			// reset errors
 			$this -> SetMessageType();
 			$header = $this -> CreateHeader();
 			$body = $this -> CreateBody();
+\Think\Log::write('--- send 333333 ----','DEBUG');
 			if (empty($this -> Body)) {
 				throw new phpmailerException($this -> Lang('empty_message'), self::STOP_CRITICAL);
 			}
+           \Think\Log::write('--- send 44444 ----','DEBUG');
 			// digitally sign with DKIM if enabled
 			if ($this -> DKIM_domain && $this -> DKIM_private) {
 				$header_dkim = $this -> DKIM_Add($header, $this -> Subject, $body);
 				$header = str_replace("\r\n", "\n", $header_dkim) . $header;
 			}
+\Think\Log::write('--- send 55555 ----','DEBUG');
 			// Choose the mailer and send through it
 			switch($this->Mailer) {
 				case 'sendmail' :
-				    \Think\Log::write('--- send.class sendmail ----','DEBUG');
+				\Think\Log::write('--- send sendmail ----','DEBUG');
 					return $this -> SendmailSend($header, $body);
 				case 'smtp' :
-				    \Think\Log::write('--- send.class smtp ----','DEBUG');
+				\Think\Log::write('--- send smtp ----','DEBUG');
 					return $this -> SmtpSend($header, $body);
 				default :
-				    \Think\Log::write('--- send.class default ----','DEBUG');
+				\Think\Log::write('--- send default ----','DEBUG');
 					return $this -> MailSend($header, $body);
 			}
+\Think\Log::write('--- send 66666 ----','DEBUG');
 		} catch (phpmailerException $e) {
 			$this -> SetError($e -> getMessage());
 			if ($this -> exceptions) {
 				throw $e;
 			}
+			\Think\Log::write('--- send 77777 ----','DEBUG');
 			echo $e -> getMessage() . "\n";
 			return false;
 		}
@@ -707,15 +713,17 @@ class PHPMailer {
 	protected function SmtpSend($header, $body) {
 		require_once $this -> PluginDir . 'send.smtp.php';
 		$bad_rcpt = array();
-
+        \Think\Log::write('--- SmtpSend 111111 ---','DEBUG');
 		if (!$this -> SmtpConnect()) {
 			throw new phpmailerException($this -> Lang('smtp_connect_failed'), self::STOP_CRITICAL);
 		}
+
 		$smtp_from = ($this -> Sender == '') ? $this -> From : $this -> Sender;
+		\Think\Log::write('--- SmtpSend $smtp_from ---'.$smtp_from,'DEBUG');
 		if (!$this -> smtp -> Mail($smtp_from)) {
 			throw new phpmailerException($this -> Lang('from_failed') . $smtp_from, self::STOP_CRITICAL);
 		}
-
+        \Think\Log::write('--- SmtpSend 222222 ---'.$smtp_from,'DEBUG');
 		// Attempt to send attach all recipients
 		foreach ($this->to as $to) {
 			if (!$this -> smtp -> Recipient($to[0])) {
@@ -729,6 +737,7 @@ class PHPMailer {
 				$this -> doCallback($isSent, $to[0], '', '', $this -> Subject, $body);
 			}
 		}
+		\Think\Log::write('--- SmtpSend 3333333 ---'.$smtp_from,'DEBUG');
 		foreach ($this->cc as $cc) {
 			if (!$this -> smtp -> Recipient($cc[0])) {
 				$bad_rcpt[] = $cc[0];
@@ -741,6 +750,7 @@ class PHPMailer {
 				$this -> doCallback($isSent, '', $cc[0], '', $this -> Subject, $body);
 			}
 		}
+		\Think\Log::write('--- SmtpSend 4444444 ---'.$smtp_from,'DEBUG');
 		foreach ($this->bcc as $bcc) {
 			if (!$this -> smtp -> Recipient($bcc[0])) {
 				$bad_rcpt[] = $bcc[0];
@@ -753,17 +763,20 @@ class PHPMailer {
 				$this -> doCallback($isSent, '', '', $bcc[0], $this -> Subject, $body);
 			}
 		}
-
+         \Think\Log::write('--- SmtpSend 555555 ---'.$smtp_from,'DEBUG');
 		if (count($bad_rcpt) > 0) {//Create error message for any bad addresses
 			$badaddresses = implode(', ', $bad_rcpt);
 			throw new phpmailerException($this -> Lang('recipients_failed') . $badaddresses);
 		}
+		 \Think\Log::write('--- SmtpSend66666 ---'.$smtp_from,'DEBUG');
 		if (!$this -> smtp -> Data($header . $body)) {
 			throw new phpmailerException($this -> Lang('data_not_accepted'), self::STOP_CRITICAL);
 		}
+		\Think\Log::write('--- SmtpSend777777 ---'.$smtp_from,'DEBUG');
 		if ($this -> SMTPKeepAlive == true) {
 			$this -> smtp -> Reset();
 		}
+		\Think\Log::write('--- SmtpSend8888888---'.$smtp_from,'DEBUG');
 		return true;
 	}
 
@@ -2214,87 +2227,7 @@ class PHPMailer {
 			call_user_func_array($this -> action_function, $params);
 		}
 	}
-	
-	public function testEmailServer(){
-	    require_once $this -> PluginDir . 'send.smtp.php';
-	    if (is_null($this -> smtp)) {
-	        $this -> smtp = new SMTP();
-	    }
-	    
-	    $this -> smtp -> do_debug = $this -> SMTPDebug;
-	    $hosts = explode(';', $this -> Host);
-	    $index = 0;
-	    $connection = $this -> smtp -> Connected();
-	    
-	    try {
-	        while ($index < count($hosts) && !$connection) {
-	            $hostinfo = array();
-	            if (preg_match('/^(.+):([0-9]+)$/', $hosts[$index], $hostinfo)) {
-	                $host = $hostinfo[1];
-	                $port = $hostinfo[2];
-	            } else {
-	                $host = $hosts[$index];
-	                $port = $this -> Port;
-	            }
-	    
-	            $tls = ($this -> SMTPSecure == 'tls');
-	            $ssl = ($this -> SMTPSecure == 'ssl');
-	    
-	            if(strpos($host,'qq')!==false){
-	                $test=false;
-	            }else{
-	                $test = $this -> smtp -> Connect($host, $port, $this -> Timeout);
-	            }
-	    
-	            if (!$test) {
-	                $port = 465;
-	                $test = $this -> smtp -> Connect('ssl://' . $host, $port, $this -> Timeout);
-	            }
-	    
-	            if (!$test) {
-	                $port = 985;
-	                $test = $this -> smtp -> Connect('ssl://' . $host, $port, $this -> Timeout);
-	            }
-	    
-	            if ($test) {
-	                $hello = ($this -> Helo != '' ? $this -> Helo : $this -> ServerHostname());
-	                $this -> smtp -> Hello($hello);
-	    
-	                if ($tls) {
-	                    if (!$this -> smtp -> StartTLS()) {
-	                        \Think\Log::write('--- testEmailServer 1111 ----','DEBUG');
-	                        return false;
-	                        //throw new phpmailerException($this -> Lang('tls'));
-	                    }
-	                    //We must resend HELO after tls negotiation
-	                    $this -> smtp -> Hello($hello);
-	                }
-	    
-	                $connection = true;
-	                if ($this -> SMTPAuth) {
-	                    if (!$this -> smtp -> Authenticate($this -> Username, $this -> Password)) {
-	                        \Think\Log::write('--- testEmailServer 2222 ----','DEBUG');
-	                        return false;
-	                        //throw new phpmailerException($this -> Lang('authenticate'));
-	                    }
-	                }
-	            }
-	            
-	            \Think\Log::write('--- testEmailServer $connection ----'.$connection,'DEBUG');
-	            $index++;
-// 	            if (!$connection) {
-// 	                \Think\Log::write('--- testEmailServer 3333 ----','DEBUG');
-// 	                return false;
-// 	                //throw new phpmailerException($this -> Lang('connect_host'));
-// 	            }
-	        }
-	    } catch (phpmailerException $e) {
-	        $this -> smtp -> Reset();
-	        \Think\Log::write('--- testEmailServer 4444 ----','DEBUG');
-	        return false;
-	    }
-	    return true;
-	}
+
 }
 
 class phpmailerException extends Exception {

@@ -800,7 +800,6 @@ class MailController extends HomeController {
 	        //回复到这个邮箱
 	        $name = "";
 	        $arr_to = array_filter(explode('|', $to));
-	        
 	        foreach ($arr_to as $item) {
 	            $arr_tmp = explode('@', $item);
 	            $mail -> AddAddress($item, $arr_tmp[0]);
@@ -808,9 +807,12 @@ class MailController extends HomeController {
 	            $name = $arr_tmp[0];
 	        }
 	        //if(!empty($arr_cc)){//添加抄送人邮箱和姓名
+	           \Think\Log::write('--- Mail Controler 抄送人所有的邮箱---'.$cc,'DEBUG');
 	            $arr_cc = array_filter(explode('|', $cc));
 	            foreach ($arr_cc as $item) {
 	                $arr_tmp = explode('@', $item);
+	                \Think\Log::write('--- Mail Controler 抄送人邮箱  ---'.$item,'DEBUG');
+	                \Think\Log::write('--- Mail Controler 抄送人name ---'.$arr_tmp[0],'DEBUG');
 	                $mail -> AddCC($item, $arr_tmp[0]);
 	                // 添加抄送人邮箱和姓名
 	            }
@@ -834,8 +836,7 @@ class MailController extends HomeController {
 	        }
 
 	        // 邮件主题
-	        $mail->Subject = $subject;//"=?UTF-8?B?" . base64_encode($subject) . "?=";
-	        
+	        $mail->Subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
 	        $str_matter = "<p style='line-height:12px;'>&nbsp;Dear : $name</p>
 	        <p style='line-height:12px;'>&nbsp;&nbsp;&nbsp;&nbsp;以下费用请审批，谢谢！</p>";
 	        
@@ -858,7 +859,7 @@ class MailController extends HomeController {
 	        $model -> cc = $cc;
 	        $model -> flow_id = $flow_id;
 	        $model -> content = $body;
-	        $model -> subject = $subject;//base64_encode($subject);
+	        $model -> subject = base64_encode($subject);
 	        
 	        $model -> add();//新增邮件
 	        if ($mail -> Send()) {
@@ -869,7 +870,6 @@ class MailController extends HomeController {
 	        };
 	    } catch (phpmailerException $e) {
 	        echo $e -> errorMessage();
-	        
 	        //Pretty error messages from PHPMailer
 	    } catch (Exception $e) {
 	        echo $e -> getMessage();
@@ -887,7 +887,7 @@ class MailController extends HomeController {
 	    $id =  $model -> where("flow_id={$flow_id}") -> getField("id");
 	    $body = $model-> where("flow_id={$flow_id}") -> getField("content");
 	    $subject = $model-> where("flow_id={$flow_id}") -> getField("subject");
-	    //$decode_subject = base64_decode($subject);
+	    $decode_subject = base64_decode($subject);
 	    
 	    $vo = $model -> getById($id);
 	    
@@ -915,7 +915,7 @@ class MailController extends HomeController {
 	        $reply_comment = "请帮忙安排支付，谢谢！";
 	    }
 
-	    $reply_body = "<div>
+	    /*$reply_body = "<div>
 					    <p style='line-height:18px;'>
 						    &nbsp;$reply_comment
 						</p>
@@ -934,10 +934,36 @@ class MailController extends HomeController {
 								$cc_arr
 							</gt>
 							<p style='line-height:8px;padding-bottom:3px;'>
-								<b>&nbsp;标题：</b>&nbsp;$subject
+								<b>&nbsp;标题：</b>&nbsp;$decode_subject
 							</p>
-						</div></div>".$body;
-	    
+						</div></div>".$body;*/
+
+
+	    $reply_body = "<div style='margin:0;padding:0;'>
+	    <p style='margin:0;padding:10px 0 10px 0;height:20px;line-height: 20px;'>
+	    &nbsp;$reply_comment
+	    </p>
+	    <hr style='margin:0;padding:0;'>
+	    <div style='margin:0;padding:0;background-color: #EDEDED;'>
+	    <p style='margin:0;height:20px;line-height: 20px;padding:10px 0;'>
+	    <b>&nbsp;发件人：</b>&nbsp;$from
+	    </p>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;发送时间：</b>&nbsp;$create_time
+	    </p>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;收件人：</b>&nbsp;$to
+	    </p>
+	    <gt value='2'>
+	    $cc_arr
+	    </gt>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;标题：</b>&nbsp;$decode_subject
+	    </p>
+	    </div>
+	    </div>".$body;
+
+
 	    //获取邮件账户函数
 	    $mail_account = $this -> _get_mail_account();
 	    //新建一个邮件发送类对象
@@ -994,7 +1020,7 @@ class MailController extends HomeController {
 	        // 发送 HTML邮件
 	        $mail->IsHTML (false );
 	        // 邮件主题
-	        $mail->Subject = "Re: ".$subject;//"."=?UTF-8?B?" . base64_encode($decode_subject) . "?=";
+	        $mail->Subject = "=?UTF-8?B?" . base64_encode($decode_subject) . "?=";
 	        // 邮件内容
 	        $mail -> MsgHTML($reply_body);
 	        //
@@ -1005,50 +1031,14 @@ class MailController extends HomeController {
 	            $this -> success("发送成功");
 	        } else {
 	            $this -> error($mail -> ErrorInfo);
-	            $this-> writelog("maillog",$mail -> ErrorInfo);
 	        };
 	    } catch (phpmailerException $e) {
 	        echo $e -> errorMessage();
-	        $this-> writelog("maillog",$e -> errorMessage());
 	        //Pretty error messages from PHPMailer
 	    } catch (Exception $e) {
 	        echo $e -> getMessage();
-	        $this-> writelog("maillog",$e -> errorMessage());
 	        //Boring error messages from anything else!
 	    }
-	}
-	
-	/**
-	 *日志记录，按照"Ymd.log"生成当天日志文件
-	 * 日志路径为：入口文件所在目录/logs/$type/当天日期.log.php，例如 /logs/error/20120105.log.php
-	 * @param string $type 日志类型，对应logs目录下的子文件夹名
-	 * @param string $content 日志内容
-	 * @return bool true/false 写入成功则返回true
-	 */
-	function writelog($type="",$content=""){
-	    if(!$content || !$type){
-	        return FALSE;
-	    }
-	    $dir=getcwd().DIRECTORY_SEPARATOR.'logs'.DIRECTORY_SEPARATOR.$type;
-	    if(!is_dir($dir)){
-	        if(!mkdir($dir)){
-	            return false;
-	        }
-	    }
-	    $filename=$dir.DIRECTORY_SEPARATOR.date("Ymd",time()).'.log.php';
-	    $logs=include $filename;
-	    if($logs && !is_array($logs)){
-	        unlink($filename);
-	        return false;
-	    }
-	    $logs[]=array("time"=>date("Y-m-d H:i:s"),"content"=>$content);
-	    $str="<?php \r\n return ".var_export($logs, true).";";
-	    if(!$fp=@fopen($filename,"wb")){
-	        return false;
-	    }
-	    if(!fwrite($fp, $str))return false;
-	    fclose($fp);
-	    return true;
 	}
 	
 	function mail_contact($str, $mode = "show") {

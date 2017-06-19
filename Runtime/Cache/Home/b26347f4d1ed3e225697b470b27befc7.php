@@ -103,24 +103,25 @@
 		</div>
 		<div class="panel-body">
 			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="li_name">标题：</label>
+				<label class="col-sm-4 control-label" for="li_pay_object">标题：</label>
 				<div class="col-sm-8">
-					<input  class="form-control" type="text" id="li_name" name="li_name" >
+					<input  class="form-control" type="text" id="li_pay_object" name="li_pay_object" >
 				</div>
 			</div>
 
 			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="eq_type">流程类型：</label>
+				<label class="col-sm-4 control-label" for="eq_pay_type">费用类型：</label>
 				<div class="col-sm-8">
-					<select class="form-control" name="eq_type" id="eq_type">
+					<select class="form-control" name="eq_pay_type" id="eq_pay_type">
 						<option value="">全部</option>
-						<?php echo fill_option($flow_type_list);?>
+						<option value="外部支付">外部支付</option>
+						<option value="内部支付">内部支付</option>
 					</select>
 				</div>
 			</div>
 			
 			<div class="form-group col-sm-6">
-				<label class="col-sm-4 control-label" for="eq_user_name">登录人：</label>
+				<label class="col-sm-4 control-label" for="eq_user_name">申请人：</label>
 				<div class="col-sm-8">
 					<input  class="form-control" type="text" id="eq_user_name" name="eq_user_name" >
 				</div>
@@ -144,8 +145,14 @@
 		<input type="hidden" name="ajax" id="ajax" value="1">
 		<div class="operate panel panel-default">
 			<div class="panel-body">
-				<div class="pull-left form-inline">
-					<a onclick="export_excel()" class="btn btn-sm btn-primary">导出</a>
+				<div class="pull-left form-inline" >
+					<a onclick="export_excel()" class="btn btn-sm btn-primary">导出系统资金格式</a>
+				</div>
+				<div class="pull-left form-inline" style="padding-left:10px">
+					<a onclick="export_out_excel()" class="btn btn-sm btn-primary">导出外部费用格式</a>
+				</div>
+				<div class="pull-left form-inline" style="padding-left:10px">
+					<a onclick="export_in_excel()" class="btn btn-sm btn-primary">导出内部费用格式</a>
 				</div>
 			</div>
 		</div>
@@ -167,7 +174,7 @@
 			    <span  class="col-8" align=center style="padding-right:10px">付款金额</span>
 			    <span  class="col-12" align=center style="padding-right:10px">银行名称</span>
 			    <span  class="col-22" align=center style="padding-right:10px">银行账号</span>
-				<span  class="col-12" align=center>申请时间</span>				
+				<span  class="col-12" align=center>审批时间</span>				
 				<span  class="col-12" align=center>申请人</span>
 			</div>
 			<!-- <div class="autocut auto" align=center>
@@ -313,23 +320,24 @@
 	    var vars = $("#form_user").serialize();
 		window.open(fix_url("<?php echo U('export');?>?" + vars), "_self");
 	}
-	
-	/* function export_excel() {
-		if ($("input[name='user_id[]']:checked").length == 0) {
-			ui_error('请选择要导出的数据 ');
-			return;
-		}
-
-		  ui_confirm('确定要导出吗?', function() {
-			sendAjax("<?php echo U('export');?>", vars, function(data) {
-				if (data.status) {
-					ui_alert(data.info, function() {
-						location.reload(true);
-					});
-				}
-			});
-		}); 
-	} */
+   
+   function export_out_excel() {
+	    if ($("input[name='user_id[]']:checked").length == 0) {
+		     ui_error('请选择要导出的数据 ');
+		     return;
+	    }
+	    var vars = $("#form_user").serialize();
+		window.open(fix_url("<?php echo U('export_out');?>?" + vars), "_self");
+	}
+   
+   function export_in_excel() {
+	    if ($("input[name='user_id[]']:checked").length == 0) {
+		     ui_error('请选择要导出的数据 ');
+		     return;
+	    }
+	    var vars = $("#form_user").serialize();
+		window.open(fix_url("<?php echo U('export_in');?>?" + vars), "_self");
+	}
 </script>
 
 	</body>

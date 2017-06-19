@@ -35,7 +35,9 @@ class AuthCheckBehavior extends Behavior {
 				break;
 
 			case 'common' :
+			    \Think\Log::write('--- AuthCheckBehavior in common  ---','DEBUG');
 				$auth = $this -> get_auth();
+				\Think\Log::write('--- AuthCheckBehavior common  get_auth  ---'.$auth,'DEBUG');
 				break;
 			case 'master' :
 				$auth = $this -> get_auth();
@@ -45,7 +47,8 @@ class AuthCheckBehavior extends Behavior {
 				}
 				break;
 
-			case 'folder' :				
+			case 'folder' :	
+			    \Think\Log::write('--- AuthCheckBehavior in folder ---','DEBUG');
 				if (in_array(ACTION_NAME, array('folder_manage','field_manage'))) {
 					$auth = $this -> get_auth();
 					break;
@@ -114,22 +117,41 @@ class AuthCheckBehavior extends Behavior {
 		$default_auth_admin = explode(',', C('AUTH.admin'));
 		$default_auth_write = explode(',', C('AUTH.write'));
 		$default_auth_read = explode(',', C('AUTH.read'));
-
+		
+// 		\Think\Log::write('--- AuthCheckBehavior result AUTH.admin---'.C('AUTH.admin'),'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result AUTH.write---'.C('AUTH.write'),'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result AUTH.read---'.C('AUTH.read'),'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result $action---'.$action,'DEBUG');
+		
+// 		\Think\Log::write('--- AuthCheckBehavior result $is_match---'.$is_match,'DEBUG');
+		
+// 		\Think\Log::write('--- AuthCheckBehavior result $is_match---'.$is_match,'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result auth_admin ---'.in_array($action, $default_auth_admin),'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result auth_write ---'.in_array($action, $default_auth_write),'DEBUG');
+// 		\Think\Log::write('--- AuthCheckBehavior result auth_read ---'.in_array($action, $default_auth_read),'DEBUG');
+		
+		
 		if (!$is_match and in_array($action, $default_auth_admin)) {
 			$is_match = true;
 			$result = $auth['admin'];
+			\Think\Log::write('--- AuthCheckBehavior result admin ---'.$auth['admin'],'DEBUG');
 		}
 		if (!$is_match and in_array($action, $default_auth_write)) {
 			$is_match = true;
 			$result = $auth['write'];
+			\Think\Log::write('--- AuthCheckBehavior result write ---'.$auth['write'],'DEBUG');
 		}
 		if (!$is_match and in_array($action, $default_auth_read)) {
 			$is_match = true;
 			$result = $auth['read'];
+			\Think\Log::write('--- AuthCheckBehavior result read ---'.$auth['read'],'DEBUG');
 		}
 
+		\Think\Log::write('--- AuthCheckBehavior final result ---'.result,'DEBUG');
 		if (!$result) {
+		    \Think\Log::write('---  AuthCheckBehavior folder !$result ---'.!$result,'DEBUG');
 			$auth_id = session(C('USER_AUTH_KEY'));
+			\Think\Log::write('---  AuthCheckBehavior $auth_id ---'.$auth_id,'DEBUG');
 			if (!isset($auth_id)) {
 				//跳转到认证网关
 				redirect(U(C('USER_AUTH_GATEWAY')));
@@ -190,6 +212,5 @@ class AuthCheckBehavior extends Behavior {
 		}
 		return false;
 	}
-
 }
 ?>

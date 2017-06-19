@@ -15,10 +15,8 @@ class PaymentController extends HomeController {
     protected $config = array('app_type' => 'master');
     
     function _search_filter(&$map) {
-        \Think\Log::write('--- Payment _search_filte ---','DEBUG');
         $map['is_del'] = array('eq', '0');
         $keyword = I('keyword');
-        \Think\Log::write('--- Payment keyword ---'.$keyword,'DEBUG');
         if (!empty($keyword)) {
             $map['name'] = array('like', "%" . $keyword . "%");
         }
@@ -36,17 +34,12 @@ class PaymentController extends HomeController {
 	}
 	
 	function folder($model) {
-	     
-	    \Think\Log::write('--- PaymentController folder ---','DEBUG');
-	     
+
 	    $plugin['date'] = true;
 	    $this -> assign("plugin", $plugin);
 	
 	    $emp_no = get_emp_no();
 	    $user_id = get_user_id();
-	
-// 	    $payment_type_list = array("外部支付", "内部支付");
-// 	    $this -> assign("payment_type_list", $payment_type_list);
 	
 	    $map = $this -> _search();
 	    if (method_exists($this, '_search_filter')) {
@@ -58,26 +51,6 @@ class PaymentController extends HomeController {
 	    $this -> display();
 	}
 	
-// 	function employee() {
-	    
-// 	    $plugin['date'] = true;
-// 	    $plugin['uploader'] = true;
-// 	    $plugin['editor'] = true;
-// 	    $this -> assign("plugin", $plugin);
-	    
-// 	    $model = D('Payment');
-// 	    $where['is_del'] = 0;
-// 	    $where['user_id'] =  get_user_id();
-// 	    $list = $model -> where($where) -> order("create_time desc") -> select();
-	
-// 	    if (!empty($model)) {
-// 	        $this -> _list($model, $where, "create_time desc");
-// 	    }
-
-// 	    $this -> assign("list", $list);
-// 	    $this -> display();
-// 	}
-	
 	public function import(){
 	    $File = D('File');
 	    $file_driver = C('DOWNLOAD_UPLOAD_DRIVER');
@@ -88,7 +61,6 @@ class PaymentController extends HomeController {
 	//生成费用Excel
 	public function export() {
 	    $id = I('user_id');
-	    \Think\Log::write('--- PaymentController export ---','DEBUG');
 		//导入thinkphp第三方类库
 	    Vendor('Excel.PHPExcel');
 		$objPHPExcel = new \PHPExcel();
@@ -159,7 +131,6 @@ class PaymentController extends HomeController {
 	//生成外部费用Excel
 	public function export_out() {
 	    $id = I('user_id');
-	    \Think\Log::write('--- PaymentController export_out 11111 ---','DEBUG');
 	    //导入thinkphp第三方类库
 	    Vendor('Excel.PHPExcel');
 	    $objPHPExcel = new \PHPExcel();

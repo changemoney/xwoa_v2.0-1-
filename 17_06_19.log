@@ -1,0 +1,324 @@
+[ 2017-06-19T08:06:56+08:00 ] ::1 /
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:13+08:00 ] ::1 /index.php?m=&c=Flow&a=index
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:15+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:16+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:17+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:18+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:18+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:18+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:07:19+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:09:06+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:09:07+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:09:07+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:09:07+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:09:08+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:10+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:10+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:11+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:11+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:11+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:29+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:30+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:30+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:30+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:10:31+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:11:02+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:11:03+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:11:03+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:11:03+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:11:04+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:12:20+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:12:21+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:12:21+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:12:21+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:12:22+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:17:24+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:17:25+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:17:25+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:18:31+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:18:32+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:18:32+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:37+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:37+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:38+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:41+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:42+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:19:44+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:20:36+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:20:37+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:20:37+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:22:59+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:23:00+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:23:00+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:25:27+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:25:28+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:25:29+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:30:28+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:30:29+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:30:29+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:33:32+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:33:33+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:33:33+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:34:29+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:34:30+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:34:30+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:28+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:29+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:29+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:33+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:33+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:53:34+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:11+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:12+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:12+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:13+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:13+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:14+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:51+08:00 ] ::1 /index.php?m=&c=Flow&a=folder&fid=submit
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:52+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:52+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:53+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:54+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:55:54+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:56:49+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:56:50+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:56:50+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:36+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:37+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:38+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:42+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:42+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:57:43+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:03+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:04+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:04+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:06+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:06+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:07+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T08:58:57+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:04+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:05+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:05+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:55+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:55+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:00:56+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:01:59+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:15+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:16+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:16+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:52+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:53+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:05:53+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:06:12+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:06:12+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:06:13+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:09:09+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:09:10+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:09:10+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:32+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:33+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:33+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:35+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:35+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:10:36+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:13:49+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:13:49+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:13:50+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:32+08:00 ] ::1 /index.php?m=&c=public&a=logout
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:33+08:00 ] ::1 /index.php
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:33+08:00 ] ::1 /index.php?m=&c=public&a=login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:41+08:00 ] ::1 /index.php?m=&c=public&a=check_login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:42+08:00 ] ::1 /index.php?m=&c=public&a=login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:42+08:00 ] ::1 /index.php
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:43+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:43+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:44+08:00 ] ::1 /index.php?m=&c=Flow&a=index
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:44+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:45+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:45+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:46+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:14:46+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:16:15+08:00 ] ::1 /index.php?m=&c=Flow&a=payment
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:16:16+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:16:16+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:00+08:00 ] ::1 /index.php?m=&c=public&a=logout
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:01+08:00 ] ::1 /index.php
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:01+08:00 ] ::1 /index.php?m=&c=public&a=login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:09+08:00 ] ::1 /index.php?m=&c=public&a=check_login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:10+08:00 ] ::1 /index.php?m=&c=public&a=login
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:11+08:00 ] ::1 /index.php
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:11+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:11+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:13+08:00 ] ::1 /index.php?m=&c=System&a=index
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:14+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:14+08:00 ] ::1 /index.php?m=&c=System&a=get_flot_data
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:14+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:19+08:00 ] ::1 /index.php?m=&c=Role&a=user
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:19+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:20+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:22+08:00 ] ::1 /index.php?m=&c=Role&a=node
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:22+08:00 ] ::1 /index.php?m=&c=push&a=client
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:22+08:00 ] ::1 /index.php?m=&c=push&a=server
+DEBUG: --- App.class run !!! ---
+[ 2017-06-19T09:19:24+08:00 ] ::1 /index.php?m=&c=Role&a=get_node_list
+DEBUG: --- App.class run !!! ---

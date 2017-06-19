@@ -212,14 +212,10 @@ class MailController extends HomeController {
 		$mail_account = $this -> _get_mail_account();
 		
 		$title = I('name');
-		\Think\Log::write('--- send name ----'.$title,'DEBUG');
 		$body = I('content');
-		\Think\Log::write('--- send body ----'.$body,'DEBUG');
 
 		$to = I('to');
-		\Think\Log::write('--- send to ----'.$to,'DEBUG');
 		$cc = I('cc');
-		\Think\Log::write('--- send cc ----'.$cc,'DEBUG');
 		$bcc = I('bcc');
 		
 		//$this -> _set_recent($to . $cc . $bcc);
@@ -442,7 +438,6 @@ class MailController extends HomeController {
 		$this -> assign('prefix', $prefix);
 
 		$id = I('id');
-		\Think\Log::write('--- 回复邮件内容 $id----'.$id,'DEBUG');
 		$where['id'] = array('eq', $id);
 		$where['user_id'] = array('eq', get_user_id());
 
@@ -861,7 +856,7 @@ class MailController extends HomeController {
 	        $model -> cc = $cc;
 	        $model -> flow_id = $flow_id;
 	        $model -> content = $body;
-	        $model -> subject = $subject;
+	        $model -> subject = base64_encode($subject);
 	        
 	        $model -> add();//新增邮件
 	        if ($mail -> Send()) {
@@ -884,22 +879,17 @@ class MailController extends HomeController {
 	//回复流程邮件
 	public function reply_flow_mail($flow_id) {
 
-		\Think\Log::write('--- HUIFULIUCHENG $flow_id ----'.$flow_id,'DEBUG');
 	    
 	    $model = M('Mail');
 
 	    $id =  $model -> where("flow_id={$flow_id}") -> getField("id");
-		\Think\Log::write('--- HUIFULIUCHENG  $ID ----'.$id,'DEBUG');
 	    $body = $model-> where("flow_id={$flow_id}") -> getField("content");
 	    $subject = $model-> where("flow_id={$flow_id}") -> getField("subject");
-	
+	    $decode_subject = base64_decode($subject);
+	    
 	    $vo = $model -> getById($id);
-	
-	    \Think\Log::write('--- HUIFULIUCHENG  $vo["to"] ----'.$vo["to"],'DEBUG');
-	    \Think\Log::write('--- HUIFULIUCHENG  $vo["cc"] ----'.$vo["cc"],'DEBUG');
 	    
 	    $from = $this -> mail_contact($vo["from"]);
-        \Think\Log::write('--- HUIFULIUCHENG  $from ----'.$from,'DEBUG');
 	    $to = $this -> mail_contact($vo["to"]);
 	    $cc = $this -> mail_contact($vo["cc"]);
 	    
@@ -910,11 +900,6 @@ class MailController extends HomeController {
 	    }
 	    
 	    $create_time = to_date($vo["create_time"], 'Y年m月d日   H:i:s');
-	    
-	    //$mail_from = $model-> getField("from");
-        \Think\Log::write('--- HUIFULIUCHENG  $mail_from ----'.$mail_from,'DEBUG');
-	    //$mail_to = $model-> getField("to");
-	    //$mail_cc = $model-> getField("cc");
 	    
 	    $flow_log = M("FlowLog");
 	    $emp_no = get_emp_no();
@@ -928,7 +913,7 @@ class MailController extends HomeController {
 	        $reply_comment = "请帮忙安排支付，谢谢！";
 	    }
 
-	    $reply_body = "<div>
+	    /*$reply_body = "<div>
 					    <p style='line-height:18px;'>
 						    &nbsp;$reply_comment
 						</p>
@@ -947,10 +932,36 @@ class MailController extends HomeController {
 								$cc_arr
 							</gt>
 							<p style='line-height:8px;padding-bottom:3px;'>
-								<b>&nbsp;标题：</b>&nbsp;$subject
+								<b>&nbsp;标题：</b>&nbsp;$decode_subject
 							</p>
-						</div></div>".$body;
-	    
+						</div></div>".$body;*/
+
+
+	    $reply_body = "<div style='margin:0;padding:0;'>
+	    <p style='margin:0;padding:10px 0 10px 0;height:20px;line-height: 20px;'>
+	    &nbsp;$reply_comment
+	    </p>
+	    <hr style='margin:0;padding:0;'>
+	    <div style='margin:0;padding:0;background-color: #EDEDED;'>
+	    <p style='margin:0;height:20px;line-height: 20px;padding:10px 0;'>
+	    <b>&nbsp;发件人：</b>&nbsp;$from
+	    </p>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;发送时间：</b>&nbsp;$create_time
+	    </p>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;收件人：</b>&nbsp;$to
+	    </p>
+	    <gt value='2'>
+	    $cc_arr
+	    </gt>
+	    <p style='margin:0;padding:10px 0;height:20px;line-height: 20px;'>
+	    <b>&nbsp;标题：</b>&nbsp;$subject
+	    </p>
+	    </div>
+	    </div>".$body;
+
+
 	    //获取邮件账户函数
 	    $mail_account = $this -> _get_mail_account();
 	    //新建一个邮件发送类对象
@@ -977,29 +988,29 @@ class MailController extends HomeController {
 	        // 这里指定字符集！
 	        $mail -> SetFrom($mail_account['email'], $mail_account['mail_name']);
 	        //发送者邮箱
-	        $mail -> AddReplyTo($mail_account['email'], $mail_account['mail_name']);
+	       // $mail -> AddReplyTo($mail_account['email'], $mail_account['mail_name']);
 	        //回复到这个邮箱
 	        $arr_to = array_filter(explode('|', $vo["from"]));
 
+	        $arr_to1 = array_filter(explode('|', $vo["to"]));
+
+	        
+	        //回复申请人
 	        foreach ($arr_to as $item) {
 	            $arr_tmp = explode('@', $item);
-				\Think\Log::write('--- HUIFULIUCHENG  $item ----'.$item ,'DEBUG');
-				\Think\Log::write('--- HUIFULIUCHENG  $arr_tmp[0] ----'.$arr_tmp[0] ,'DEBUG');
 	            $mail -> AddAddress($item,$arr_tmp[0]);
 	        }
-	        //$mail -> AddAddress($arr_to[1],$arr_to[0]);
-	        // 添加收件人邮箱和姓名
-	        //if(!empty($arr_cc)){//添加抄送人邮箱和姓名
-// 	            $arr_cc = array_filter(explode('|', $cc));
-// 	            \Think\Log::write('--- 回复抄送人 $arr_cc----'.$arr_cc,'DEBUG');
-// 	            $mail -> AddCC($arr_cc[1],$arr_cc[0]);
-	        //}
+	        
+	        foreach ($arr_to1 as $item) {
+	            if(strpos($item,$mail_account['email']) === false){
+	                $arr_tmp = explode('@', $item);
+	                $mail -> AddAddress($item,$arr_tmp[0]);
+	            }
+	        }
+
 	        $arr_cc = array_filter(explode('|',  $vo["cc"]));
-	        \Think\Log::write('--- 流程回复 $arr_cc ----'.$arr_cc,'DEBUG');
 	        foreach ($arr_cc as $item) {
 	                $arr_tmp = explode('@', $item);
-	                \Think\Log::write('--- 流程回复 抄送人$item ----'.$item,'DEBUG');
-	                \Think\Log::write('--- 流程回复 抄送人名$arr_tmp["0"] ----'.$arr_tmp["0"],'DEBUG');
 	                $mail -> AddCC($item, $arr_tmp[0]);
 	        }
 	        // set word wrap
@@ -1007,7 +1018,7 @@ class MailController extends HomeController {
 	        // 发送 HTML邮件
 	        $mail->IsHTML (false );
 	        // 邮件主题
-	        $mail->Subject = "=?UTF-8?B?" . base64_encode($subject) . "?=";
+	        $mail->Subject = "=?UTF-8?B?" . base64_encode($decode_subject) . "?=";
 	        // 邮件内容
 	        $mail -> MsgHTML($reply_body);
 	        //

@@ -60,10 +60,12 @@ class App {
      * @return void
      */
     static public function exec() {
-    
+        \Think\Log::write('--- App.classs exec 11111 ---','DEBUG');
         if(!preg_match('/^[A-Za-z](\/|\w)*$/',CONTROLLER_NAME)){ // 安全检测
+            \Think\Log::write('--- App.classs CONTROLLER_NAME ---'.CONTROLLER_NAME,'DEBUG');
             $module  =  false;
         }elseif(C('ACTION_BIND_CLASS')){
+            \Think\Log::write('--- App.class ACTION_BIND_CLASS ---','DEBUG');
             // 操作绑定到类：模块\Controller\控制器\操作
             $layer  =   C('DEFAULT_C_LAYER');
             if(is_dir(MODULE_PATH.$layer.'/'.CONTROLLER_NAME)){
@@ -79,6 +81,7 @@ class App {
                 // 空操作
                 $class   =  $namespace.'_empty';
             }else{
+                \Think\Log::write('--- App.class ACTION_NAME ---'.ACTION_NAME,'DEBUG');
                 E(L('_ERROR_ACTION_').':'.ACTION_NAME);
             }
             $module  =  new $class;
@@ -111,6 +114,7 @@ class App {
                 // 非法操作
                 throw new \ReflectionException();
             }
+            \Think\Log::write('--- App.class URL_PARAMS_BIND ---'.C('URL_PARAMS_BIND'),'DEBUG');
             //执行当前操作
             $method =   new \ReflectionMethod($module, $action);
             if($method->isPublic() && !$method->isStatic()) {
@@ -133,20 +137,32 @@ class App {
                             break;
                         default:
                             $vars  =  $_GET;
+//                             echo var_dump($vars);
+//                             \Think\Log::write('--- App.class default ---'.$vars,'DEBUG');
                     }
-                    $params =  $method->getParameters();					
+                    $params =  $method->getParameters();
                     $paramsBindType     =   C('URL_PARAMS_BIND_TYPE');
+                    \Think\Log::write('--- App.class $paramsBindType ---'.$paramsBindType,'DEBUG');
                     foreach ($params as $param){
                         $name = $param->getName();
+                        \Think\Log::write('--- App.class $param ---'.$param,'DEBUG');
+                        \Think\Log::write('--- App.class $name ---'.$name,'DEBUG');
+                        \Think\Log::write('--- App.class $vars[$name] ---'.$vars[$name],'DEBUG');
                         if( 1 == $paramsBindType && !empty($vars) ){
                             $args[] =   array_shift($vars);
+                            \Think\Log::write('--- App.class 11111 ---','DEBUG');
                         }elseif( 0 == $paramsBindType && isset($vars[$name])){
                             $args[] =   $vars[$name];
+                            \Think\Log::write('--- App.class 22222 ---','DEBUG');
                         }elseif($param->isDefaultValueAvailable()){
                             $args[] =   $param->getDefaultValue();
+                            \Think\Log::write('--- App.class 33333 ---','DEBUG');
+                        }else if(0 == $paramsBindType && $action === "payment"){
+                            \Think\Log::write('--- App.class 555555 ---','DEBUG');
+                            $args[] =   $vars[$name];
                         }else{
                             E(L('_PARAM_ERROR_').':'.$name);
-                        }   
+                        }
                     }
                     // 开启绑定参数过滤机制
                     if(C('URL_PARAMS_SAFE')){
@@ -188,6 +204,7 @@ class App {
      * @return void
      */
     static public function run() {
+        \Think\Log::write('--- App.class run !!! ---','DEBUG');
         // 应用初始化标签
         Hook::listen('app_init');
         App::init();

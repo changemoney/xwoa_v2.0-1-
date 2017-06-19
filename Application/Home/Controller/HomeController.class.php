@@ -529,7 +529,6 @@ class HomeController extends Controller {
 
 	//生成查询条件
 	protected function _search($model = null) {
-	    
 		$map = array();
 		//过滤非查询条件
 		$request = array_filter(array_keys(array_filter($_REQUEST)), "filter_search_field");
@@ -537,9 +536,8 @@ class HomeController extends Controller {
 			$model = D(CONTROLLER_NAME);
 		}
 		$fields = get_model_fields($model);
-		
 		foreach ($request as $val) {
-			$field = substr($val, 3);				
+			$field = substr($val, 3);
 			$prefix = substr($val, 0, 3);
 			if (in_array($field, $fields)) {
 				if ($prefix == "be_") {
@@ -561,7 +559,6 @@ class HomeController extends Controller {
 					$map[$field] = array('like', '%' . trim($_REQUEST[$val]) . '%');
 				}
 				if ($prefix == "eq_") {
-				    
 					$map[$field] = array('eq', trim($_REQUEST[$val]));
 				}
 				if ($prefix == "gt_") {
@@ -589,7 +586,9 @@ class HomeController extends Controller {
 		$count_model = clone $model;
 		//取得满足条件的记录数
 		$count = $count_model -> where($map) -> count();
-
+		//取得费用的总和
+		$total = $count_model -> where($map) -> sum('pay_amount');
+		
 		if ($count > 0) {
 			//创建分页对象
 			if (!empty($_REQUEST['list_rows'])) {
@@ -598,7 +597,7 @@ class HomeController extends Controller {
 				$list_rows = get_user_config('list_rows');
 			}
 			import("@.ORG.Util.Page");
-			$p = new \Page($count, $list_rows);
+			$p = new \Page($count, $list_rows,$total);
 			//分页查询数据
 			$vo_list = $model -> where($map) -> order($sort) -> limit($p -> firstRow . ',' . $p -> listRows) -> select();
 

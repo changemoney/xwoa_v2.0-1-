@@ -13,8 +13,7 @@ namespace Home\Controller;
 
 class FlowController extends HomeController {
 	protected $config = array('app_type' => 'common', 'read' => 'approve,mark,field_manage,back_to,reject,send_refer,refer');
-	
-	
+
 	function _search_filter(&$map) {
 		$map['is_del'] = array('eq', '0');
 		$keyword = I('keyword');
@@ -49,6 +48,7 @@ class FlowController extends HomeController {
 	}
 
 	function _flow_auth_filter($folder, &$map) {
+	     
 		$emp_no = get_emp_no();
 		$user_id = get_user_id();
 		switch ($folder) {
@@ -130,6 +130,9 @@ class FlowController extends HomeController {
 				$this -> assign("folder_name", '未参阅');
 				$FlowLog = M("FlowLog");
 				$where['emp_no'] = $emp_no;
+				$where['step'] = 100;
+				$where['is_del'] = 0;
+				$where['_string'] = "comment is null";
 				$log_list = $FlowLog -> where($where) -> field('flow_id') -> select();
 				$log_list = rotate($log_list);
 				if (!empty($log_list)) {
@@ -137,7 +140,7 @@ class FlowController extends HomeController {
 				} else {
 					$map['_string'] = '1=2';
 				}
-				break;
+				break;	
 							
 			case 'report' :
 				$this -> assign("folder_name", '统计报告');
@@ -160,8 +163,6 @@ class FlowController extends HomeController {
 	}
 
 	function folder($fid) {
-	    
-
 		$plugin['date'] = true;
 		$this -> assign("plugin", $plugin);
 
@@ -508,58 +509,6 @@ class FlowController extends HomeController {
 		$this -> assign("confirm", $confirm[0]);
 		$this -> display();
 	}
-	
-	function payment($id) {
-	
-	    
-	    $plugin['date'] = true;
-	    $plugin['uploader'] = true;
-	    $plugin['editor'] = true;
-	    $this -> assign("plugin", $plugin);
-	
-// 	    $model = D("Flow");
-// 	    $where['id'] = array('eq', $id);
-// 	    $where['_logic'] = 'and';
-// 	    $map['_complex'] = $where;
-	
-// 	    $vo = $model -> where($map) -> find();
-// 	    if (empty($vo)) {
-// 	        $this -> error("系统错误");
-// 	    }
-	
-// 	    $this -> assign("emp_no", $vo['emp_no']);
-// 	    $this -> assign("user_name", $vo['user_name']);
-// 	    $this -> assign('vo', $vo);
-	
-// 	    $field_list = D("UdfField") -> get_data_list($vo['udf_data']);
-	
-// 	    $result_list = $this -> list_sort_by($field_list,'sort',asc);
-	
-// 	    $this -> assign("field_list", $result_list);
-	
-// 	    $flow_type_id = $vo['type'];
-// 	    $model = M("FlowType");
-// 	    $flow_type = $model -> find($flow_type_id);
-// 	    $this -> assign("flow_type", $flow_type);
-	
-	    //个人费用信息汇总
-	    //$this -> assign("", '个人申请费用汇总');
-	    $Payment = M("Payment");
-	    $where['emp_no'] = get_emp_no();;
-	    $log_list = $Payment -> where($where) -> field('flow_id') -> select();
-	    $map = $this -> _search();
-// 	    if (method_exists($this, '_search_filter')) {
-// 	        $this -> _search_filter($map);
-// 	    }
-	    //显示结果
-	    $this -> _list($Payment, $map, 'create_time desc');
-	    $this -> display();
-// 	    if (!empty($log_list)) {
-// 	        $map['id'] = array('in', $log_list['flow_id']);
-// 	    } else {
-// 	        $map['_string'] = '1=2';
-// 	    }    
-	}
 
 	function del($id){
 		$this->_del($id);
@@ -571,9 +520,9 @@ class FlowController extends HomeController {
 	        $emp_no = get_emp_no();
 	        $where['emp_no'] = array('eq', $emp_no);
 	        $self_email = M("User") -> where($where) -> getField("email");
-	        //校验邮箱名称是否完整
+	     
 	        if (empty($self_email)) {
-	          $this -> error('您没有配置邮箱或您的用户名称有误');
+	          $this -> error('您没有配置邮箱，无法提交流程');
 	        }
 	        
             $model = D($name);
@@ -593,8 +542,6 @@ class FlowController extends HomeController {
 	        //获取的邮件内容
 	        $content = $model -> udf_data = D('UdfField') -> get_field_data();
 	        
-	        $flow_id = $model -> add();
-	        
 	        $type = I('type');
 	        //62,63,64是多笔费用申请单编号
 	        if($type == "62" || $type == "63" || $type == "64"){
@@ -603,6 +550,7 @@ class FlowController extends HomeController {
 	            $body = D("Flow") ->_conv_email_content($content);
 	        }
 	        
+	        $flow_id = $model -> add();
 	        if ($flow_id !== false) {//保存成功
 	            //$flow_filed = D("UdfField") -> set_field($list);
 	            if(!empty($email_confirm)){
@@ -611,8 +559,7 @@ class FlowController extends HomeController {
 	                $this -> success('新增成功!');
 	            }else{
 	                //提示设置邮箱账号
-	                $this -> error('请先设置邮箱账号，再提交申请！');
-	                //$this -> show("<script>alert('您的收件人邮箱不存在 ！！！');location.href='".U('MailAccount/index')."'</script>");
+	                $this -> show("<script>alert('您的收件人邮箱不存在 ！！！');location.href='".U('MailAccount/index')."'</script>");
 	            }
 	        } else {
 	            $this -> error('新增失败!');
@@ -665,14 +612,8 @@ class FlowController extends HomeController {
 			D("Flow") -> next_step($flow_id, $step);
 			$this -> assign('jumpUrl', U('flow/folder', 'fid=confirm'));
 			$this -> success('操作成功!');
-			$doc_no = M("Flow") -> where("id=$flow_id") -> getField('doc_no');
-
  			$this -> send_reply_mail($flow_id);
-			if($doc_no == "01"){
-			    $this -> insert_payment($flow_id);
-			}else if($doc_no == "02" || $doc_no == "03" || $doc_no == "04"){
-			    $this -> insert_multi_payment($flow_id);
-			}
+			$this -> insert_multi_payment($flow_id);
 		} else {
 			$this -> error('操作失败!');
 		}
@@ -813,78 +754,6 @@ class FlowController extends HomeController {
 	    $mail -> reply_flow_mail($flow_id);
 	    // telling the namespace Home\Controller; 
 	}
-
-	//插入费用表中去
-	private function insert_payment($flow_id){
-	    $flow = M("Flow") -> find($flow_id);
-	    $user_id = $flow['user_id'];
-	    $user_name = $flow['user_name'];
-	    $group_id = $flow['dept_id'];
-	    $form_data = $flow['udf_data'];
-	    $object = $flow['name'];
-
-	    $model = M('Payment');
-	    if (false === $model -> create()) {
-	        $this -> error($model -> getError());
-	    }
-
-	    $model -> user_id = $user_id;//申请人ID
-	    $model -> user_name = $user_name;//申请人名称
-	    $model -> group_id = $group_id;//模块
-	    $model -> create_time= time();//申请时间
-	    $model -> pay_object = $object;//费用标题
-
-	    //新增费用数据
-	    $arr_row = array_filter(explode(",", $form_data));
-	    foreach ($arr_row as $item) {
-	        $temp = explode(":", $item);
-	        preg_match('/\d+/',$temp[0],$arr_id);
-	        $row_id = $arr_id[0];
-	        $temp[1] = str_replace('"','',$temp[1]);
-	        $temp[1] = str_replace('{','',$temp[1]);
-	        $temp[1] = str_replace('}','',$temp[1]);
-	        $row_data = $temp[1];
-	        if($row_id == 244){
-	         //费用类型
-	         $model -> pay_type = $row_data;
-	         $arr1 = $row_data;
-	        }else if($row_id == 231){
-	         //收款人
-	         $model -> pay_to = $row_data;
-	         $arr2 = $row_data;
-	        }else if($row_id == 232){
-	         //银行账号
-	         $model -> pay_account = $row_data;
-	         $arr3 = $row_data;
-	        }else if($row_id == 243){
-	         //银行名称
-	         $model -> pay_bank = $row_data;
-	         $arr4 = $row_data;
-	        }else if($row_id == 229){
-	         //开户行地址
-	         $model -> pay_bankaddress = $row_data;
-	         $arr5 = $row_data;
-	        }else if($row_id == 230){
-	         //汇款金额
-	         $model -> pay_amount = $row_data;
-	         $arr6 = $row_data;
-	        }else if($row_id == 238){
-	         //产品名称
-	         $model -> product_name = $row_data;
-	         $arr7 = $row_data;
-	        }else if($row_id == 233){
-	         //费用用途  
-	         $model -> pay_use = $row_data;
-	         $arr8 = $row_data;
-	        }else if($row_id == 234){
-	         //备注
-	         $model -> remark = $row_data;
-	         $arr9 = $row_data;
-	        }
-	    }
-	    $model -> remark = $object.$arr1.$arr2.$arr3.$arr4.$arr5.$arr6.$arr7.$arr8.$arr9;
-	    $model -> add();
-	}
 	
 	//插入费用表中去
 	private function insert_multi_payment($flow_id){
@@ -900,7 +769,6 @@ class FlowController extends HomeController {
 	    foreach ($arr_row as $item) {	        
 	        $temp = explode(":", $item,10);
 
-	        $temp[0] = $this -> filter_string($temp[0]);
 	        $temp[1] = $this -> filter_string($temp[1]);
 	        $temp[2] = $this -> filter_string($temp[2]);
 	        $temp[3] = $this -> filter_string($temp[3]);
@@ -926,7 +794,7 @@ class FlowController extends HomeController {
 	        $data['pay_amount'] = $temp[6];
 	        $data['product_name'] = $temp[7];
 	        $data['pay_use'] = $temp[8];
-	        $data['remark'] = $object.$temp[0].$temp[1].$temp[2].$temp[3].$temp[4].$temp[5].$temp[6].$temp[7].$temp[8].$temp[9];
+	        $data['remark'] = $object.$temp[1].$temp[2].$temp[3].$temp[4].$temp[5].$temp[6].$temp[7].$temp[8].$temp[9];
 	
 	    	$model = M('Payment');
 	        if (false === $model -> create()) {
@@ -970,5 +838,29 @@ class FlowController extends HomeController {
 	    }
 	    return false;
 	}
-	
+
+    function payment($id){   
+        $payment = M("Payment");
+        $where['user_name'] = get_emp_no();
+        
+        $pay_list = $payment->where($where)->order('create_time desc')->select();
+        if (!empty($payment)) {
+            $this -> payment_search($payment);
+        }
+    }
+    
+    function payment_search($payment) {
+        
+        $plugin['date'] = true;
+        $this -> assign("plugin", $plugin);
+        //必须指定model,否则按默认model处理
+        $map = $this->_search($payment);
+        $map['user_name'] = get_emp_no();
+
+        if (method_exists($this, 'create_time desc')) {
+            $this -> _search_filter($map);
+        }
+        $this->_list($payment, $map, 'create_time desc');
+        $this -> display();
+    }
 }

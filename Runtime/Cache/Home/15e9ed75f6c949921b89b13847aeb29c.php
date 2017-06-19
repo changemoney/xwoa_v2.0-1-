@@ -307,9 +307,10 @@
 					$("#post").html("提交")
 					$("#post").attr("onclick","save(20)");
 					 clearInterval(int);
+	
 				}else{
 				  $("#post").attr("onclick","javascript:alert('不能重复提交！')");
-				  $("#post").html("重新提交("+t+")")
+				  $("#post").html("重新提交("+t+")")	
 				}
 			},1000)
 			

@@ -39,10 +39,13 @@ class Page {
     protected $coolPages   ;
 
     // 分页显示定制
-    protected $config  = array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','all'=>'全部','page'=>'分页','export'=>'导出','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end% %allPage% %exportPage%');
+    protected $config  = array('header'=>'条记录','prev'=>'上一页','next'=>'下一页','first'=>'第一页','last'=>'最后一页','all'=>'全部','page'=>'分页','export'=>'导出','total'=>'费用总计','theme'=>' %totalRow% %header% %nowPage%/%totalPage% 页 %upPage% %downPage% %first%  %prePage%  %linkPage%  %nextPage% %end% %allPage% %exportPage% %total%');
 
     // 默认分页变量名
     protected $varPage;
+    
+    // 费用总计
+    protected $totalFee;
 
     /**
      * 架构函数
@@ -52,8 +55,10 @@ class Page {
      * @param array $parameter  分页跳转的参数
      */
 
-    public function __construct($totalRows,$listRows='',$parameter=''){
+    public function __construct($totalRows,$listRows='',$totalFee,$parameter=''){
+        
         $this->totalRows    =   $totalRows;
+        $this->totalFee    =   $totalFee;
         $this->parameter    =   $parameter;
         $this->varPage      =   C('VAR_PAGE') ? C('VAR_PAGE') : 'p' ;
         if(!empty($listRows)) {
@@ -177,9 +182,11 @@ class Page {
 		if(method_exists(A(CONTROLLER_NAME),'_'.ACTION_NAME.'_export')){			
 			$exportPage="<input type=\"button\" value=\"".$this->config['export']."\" onclick=\"this.form.mode.value='export';this.form.list_rows.value=".$this->totalRows.";this.form.submit();\">";			
 		}
+		
+		$total ="<b>".$this->config['total']." : ".$this->totalFee." 元</b>";
 		 		
-        $pageStr     =   str_replace(array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%','%allPage%','%exportPage%'),
-            array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd,$allPage,$exportPage),$this->config['theme']);
+        $pageStr     =   str_replace(array('%header%','%nowPage%','%totalRow%','%totalPage%','%upPage%','%downPage%','%first%','%prePage%','%linkPage%','%nextPage%','%end%','%allPage%','%exportPage%','%total%'),
+            array($this->config['header'],$this->nowPage,$this->totalRows,$this->totalPages,$upPage,$downPage,$theFirst,$prePage,$linkPage,$nextPage,$theEnd,$allPage,$exportPage,$total),$this->config['theme']);
 		$pageStr=str_replace("%pageStr%",$pageStr,$html);
         return $pageStr;
     }

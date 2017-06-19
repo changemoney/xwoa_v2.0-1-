@@ -247,25 +247,54 @@ class  FlowModel extends CommonModel {
 	    foreach ($arr_row as $item) {
 	            $temp = explode(":", $item,2);
 	            preg_match('/\d+/',$temp[0],$arr_id);
-	            \Think\Log::write('--- Email内容222 $arr_id[0] ---'.$arr_id[0],'DEBUG');
 	            $row_id = $arr_id[0];
-	            \Think\Log::write('--- Email内容3333 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('"','',$temp[1]);
-	            \Think\Log::write('--- Email内容4444 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('{','',$temp[1]);
-	            \Think\Log::write('--- Email内容5555 $row_data  ---'.$temp[1],'DEBUG');
 	            $temp[1] = str_replace('}','',$temp[1]);
-	            \Think\Log::write('--- Email内容6666 $row_data  ---'.$temp[1],'DEBUG');
+	            $temp[1] = str_replace('\r','<br/>',$temp[1]);
+	            $temp[1] = str_replace('\n','',$temp[1]);
+	            $temp[1]= str_replace('\\', '',$temp[1]);
 	            $row_data = $temp[1];
-	            \Think\Log::write('--- Email内容7777 $row_data  ---'.$temp[1],'DEBUG');
-	            
 	            $row_name = M("UdfField") -> where("id= $row_id") -> getField('name');
 	            if (!empty($row_name)) {
-	                $str_email_content .= "<tr><th style='width:100px;padding:3px;'>".$row_name.":"."</th>"."<td style='min-width: 400px;padding-left:10px;'>".$row_data."</td></tr>";
+	                $str_email_content .= "<tr><th width='130'>".$row_name.":"."</th>"."<td>".$row_data."</td></tr>";
 	            }
 	    }
-	    $str_email_content = "<table style='white-space: nowrap;' border='1' cellspacing='0' cellpadding='5'>".$str_email_content ."</table>";
+	    $str_email_content = "<table width='530' border='1' cellspacing='0' cellpadding='5'>".$str_email_content ."</table>";
 	    return $str_email_content;
+	}
+	
+	function _conv_multi_email_content($val){
+	    
+	    $arr_row = array_filter(explode("^", $val));
+	    $str_email_content = '';
+	    $email_content = "";
+	    foreach ($arr_row as $row){
+	        $tab_row = explode(",", $row);
+	        foreach ($tab_row as $item) {
+	            $temp = explode(":", $item,2);
+	             
+	            preg_match('/\d+/',$temp[0],$arr_id);
+	            $row_id = $arr_id[0];
+
+	            $temp[1] = str_replace('"','',$temp[1]);
+	            $temp[1] = str_replace('{','',$temp[1]);
+	            $temp[1] = str_replace('}','',$temp[1]);
+	            $temp[1] = str_replace('\r','<br/>',$temp[1]);
+	            $temp[1] = str_replace('\n','',$temp[1]);
+	            $temp[1]= str_replace('\\', '',$temp[1]);
+	            $row_data = $temp[1];
+	            if (!empty($row_id)) {
+	                $row_name = M("UdfField") -> where("id= $row_id") -> getField('name');
+	                if (!empty($row_name) && strpos($row_name, "分隔") === false) {
+	                    $str_email_content .= "<tr><th width='130'>".$row_name.":"."</th>"."<td>".$row_data."</td></tr>";
+	                }
+	            }
+	        }
+	        $email_content .= "<table width='530' border='1' cellspacing='0' cellpadding='5'>".$str_email_content ."</table><br/><p> </p>";
+	        $str_email_content = "";
+	    }
+	    return $email_content;
 	}
 	
 	public function back_to($flow_id, $emp_no) {
@@ -398,13 +427,32 @@ class  FlowModel extends CommonModel {
 	}
 
 	function duty_emp_no($flow_id, $step) {
-	    //全部发送审批权限(包括抄送人都有权限进行审批)
+	    //除员工外全部发送审批权限(包括抄送人都有权限进行审批)
 		if (substr($step, 0, 1) == 2) {
 			$confirm = M("Flow") -> where(array('id' => $flow_id)) -> getField("confirm");
 			$consult = M("Flow") -> where(array('id' => $flow_id)) -> getField("consult");
 			$arr_confirm = array_filter(explode("|", $confirm));
 			$arr_consult = array_filter(explode("|", $consult));
-			$emp = $confirm.$consult;
+			
+			//对有员工权限的不进行审批发送
+			foreach ($arr_confirm as $k => $item){
+			    $where['emp_no'] = $item;
+ 			    $position = M("User")->where($where)->getField('position_id');
+			    if($position != 10){//10是员工的固定值
+			        $new_confirm .= $item. "|";
+			   }
+			}
+			
+			//对有员工权限的不进行审批发送
+			foreach ($arr_consult as $k => $item){
+			    $where['emp_no'] = $item;
+			    $position = M("User")->where($where)->getField('position_id');
+			    if($position != 10){//10是员工的固定值
+			        $new_consult .= $item. "|";
+			    }
+			}
+
+			$emp = $new_confirm.$new_consult;
 			return $emp;//$arr_confirm[fmod($step, 10) - 1];
 		}
 
